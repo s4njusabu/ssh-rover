@@ -3,8 +3,8 @@
 use crate::app::App;
 use ratatui::{
     Frame,
-    layout::{Constraint, Flex, Layout},
-    style::{Color, Style},
+    layout::{Constraint, Flex, Layout, Rect},
+    style::{Color, Modifier, Style},
     widgets::Paragraph,
 };
 
@@ -17,7 +17,7 @@ pub const MENU_ITEMS: [&str; 5] = [
     "Exit",
 ];
 
-pub fn draw(frame: &mut Frame, state: &App) {
+pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
     let banner_width = BANNER
         .lines()
         .map(|line| line.chars().count())
@@ -29,7 +29,7 @@ pub fn draw(frame: &mut Frame, state: &App) {
         Constraint::Length(10),
         Constraint::Min(0),
     ])
-    .areas(frame.area());
+    .areas(area);
 
     let [banner_area] = Layout::horizontal([Constraint::Length(banner_width)])
         .flex(Flex::Center)
@@ -53,59 +53,112 @@ pub fn draw(frame: &mut Frame, state: &App) {
     ])
     .areas(menu_area);
 
-    // Options
-
     if state.selected == 0 {
         frame.render_widget(
-            Paragraph::new("Quick Connect")
-                .centered()
-                .style(Style::default().fg(Color::LightBlue)),
+            Paragraph::new("Quick Connect").centered().style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
             quick,
         );
     } else {
-        frame.render_widget(Paragraph::new("Quick Connect").centered(), quick);
+        frame.render_widget(
+            Paragraph::new("Quick Connect")
+                .style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                )
+                .centered(),
+            quick,
+        );
     }
 
     if state.selected == 1 {
         frame.render_widget(
-            Paragraph::new("Saved Hosts")
-                .centered()
-                .style(Style::default().fg(Color::LightBlue)),
+            Paragraph::new("Saved Hosts").centered().style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
             saved,
         );
     } else {
-        frame.render_widget(Paragraph::new("Saved Hosts").centered(), saved);
+        frame.render_widget(
+            Paragraph::new("Saved Hosts")
+                .style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                )
+                .centered(),
+            saved,
+        );
     }
     if state.selected == 2 {
         frame.render_widget(
-            Paragraph::new("Dependencies")
-                .centered()
-                .style(Style::default().fg(Color::LightBlue)),
+            Paragraph::new("Dependencies").centered().style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
             dependencies,
         );
     } else {
-        frame.render_widget(Paragraph::new("Dependencies").centered(), dependencies);
+        frame.render_widget(
+            Paragraph::new("Dependencies")
+                .style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                )
+                .centered(),
+            dependencies,
+        );
     }
 
     if state.selected == 3 {
         frame.render_widget(
-            Paragraph::new("About")
-                .centered()
-                .style(Style::default().fg(Color::LightBlue)),
+            Paragraph::new("About").centered().style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
             about,
         );
     } else {
-        frame.render_widget(Paragraph::new("About").centered(), about);
+        frame.render_widget(
+            Paragraph::new("About")
+                .style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                )
+                .centered(),
+            about,
+        );
     }
 
     if state.selected == 4 {
         frame.render_widget(
-            Paragraph::new("Exit")
-                .centered()
-                .style(Style::default().fg(Color::LightBlue)),
+            Paragraph::new("Exit").centered().style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
             exit,
         );
     } else {
-        frame.render_widget(Paragraph::new("Exit").centered(), exit);
+        frame.render_widget(
+            Paragraph::new("Exit")
+                .style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                )
+                .centered(),
+            exit,
+        );
     }
 }
