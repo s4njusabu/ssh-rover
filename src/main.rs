@@ -1,3 +1,23 @@
-fn main() {
-    println!("MuxSSH");
+use crossterm::event::{self, Event, KeyCode};
+
+mod ui;
+use ui::app;
+
+fn main() -> std::io::Result<()> {
+    let mut terminal = ratatui::init();
+
+    loop {
+        terminal.draw(|frame| app::draw(frame))?;
+
+        if let Event::Key(key_event) = event::read()? {
+            match key_event.code {
+                KeyCode::Esc => break,
+                _ => (),
+            }
+        }
+    }
+
+    ratatui::restore();
+    println!("Bye from MuxSSH!");
+    Ok(())
 }
