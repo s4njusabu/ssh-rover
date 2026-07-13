@@ -1,13 +1,16 @@
 use crossterm::event::{self, Event, KeyCode};
 
 mod ui;
-use ui::app;
+use ui::{border, home};
 
 fn main() -> std::io::Result<()> {
     let mut terminal = ratatui::init();
 
     loop {
-        terminal.draw(|frame| app::draw(frame))?;
+        terminal.draw(|frame| {
+            border::draw(frame);
+            home::draw(frame);
+        })?;
 
         if let Event::Key(key_event) = event::read()? {
             match key_event.code {
