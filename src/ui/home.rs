@@ -24,7 +24,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         Layout::vertical([Constraint::Length(12), Constraint::Min(0)]).areas(area);
 
     draw_banner(frame, banner_area);
-    draw_content(frame, content_area, state);
+    draw_content_test(frame, content_area, state);
 }
 
 // 2
@@ -61,6 +61,23 @@ fn draw_banner(frame: &mut Frame, area: Rect) {
 }
 
 // 3
+fn draw_content_test(frame: &mut Frame, area: Rect, _state: &App) {
+    // Outermost border (the border that holds the child cells) / container border
+    let content_area = area.inner(Margin {
+        horizontal: 1,
+        vertical: 0,
+    });
+
+    let content_block = Block::bordered()
+        .border_type(BorderType::Thick)
+        .border_style(Style::default().fg(Color::LightBlue));
+
+    frame.render_widget(content_block.clone(), content_area);
+
+    let inner = content_block.inner(content_area);
+}
+
+// 4
 fn draw_content(frame: &mut Frame, area: Rect, state: &App) {
     let [line_area, content_area] =
         Layout::vertical([Constraint::Length(1), Constraint::Min(0)]).areas(area);
