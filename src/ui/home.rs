@@ -5,7 +5,8 @@ use ratatui::{
     Frame,
     layout::{Constraint, Flex, Layout, Margin, Rect},
     style::{Color, Modifier, Style},
-    widgets::{Block, BorderType, Borders, Paragraph},
+    text::Line,
+    widgets::{Block, BorderType, Paragraph},
 };
 
 const BANNER: &str = include_str!("../../assets/banner.txt");
@@ -24,7 +25,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         Layout::vertical([Constraint::Length(12), Constraint::Min(0)]).areas(area);
 
     draw_banner(frame, banner_area);
-    draw_content_test(frame, content_area, state);
+    draw_content(frame, content_area, state);
 }
 
 // 2
@@ -61,8 +62,9 @@ fn draw_banner(frame: &mut Frame, area: Rect) {
 }
 
 // 3
-fn draw_content_test(frame: &mut Frame, area: Rect, _state: &App) {
-    // Outermost border (the border that holds the child cells) / container border
+fn draw_content(frame: &mut Frame, area: Rect, _state: &App) {
+    // 1
+    // container border below the banner; outermost border (the border that holds the panes)
     let content_area = area.inner(Margin {
         horizontal: 1,
         vertical: 0,
@@ -75,145 +77,79 @@ fn draw_content_test(frame: &mut Frame, area: Rect, _state: &App) {
     frame.render_widget(content_block.clone(), content_area);
 
     let inner = content_block.inner(content_area);
+
+    //2
+    // Panes layout
+    let [_, menu_area, actions_area, output_area, _] = Layout::horizontal([
+        Constraint::Length(1),
+        Constraint::Length(30),
+        Constraint::Length(35),
+        Constraint::Min(0),
+        Constraint::Length(1),
+    ])
+    .areas(inner);
+
+    // Panes
+
+    draw_pane_1(frame, menu_area, _state);
+    draw_pane_2(frame, actions_area, _state);
+    draw_pane_3(frame, output_area, _state);
+
+    // 3
+    // Options menu ()
+
+    // 4
+    // Sub menu (Child cell 2)
+
+    // 5
+    // Output menu (Child cell 3)
 }
 
-// 4
-fn draw_content(frame: &mut Frame, area: Rect, state: &App) {
-    let [line_area, content_area] =
-        Layout::vertical([Constraint::Length(1), Constraint::Min(0)]).areas(area);
-
+// Panes
+fn draw_pane_1(frame: &mut Frame, area: Rect, _state: &App) {
     frame.render_widget(
         Block::bordered()
             .border_type(BorderType::Thick)
-            .borders(Borders::TOP)
+            .title(
+                Line::from(" 1 ").style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                ),
+            )
             .border_style(Style::default().fg(Color::LightBlue)),
-        line_area,
+        area,
     );
+}
 
-    let [menu_area, divider_area, preview_area] = Layout::horizontal([
-        Constraint::Length(24),
-        Constraint::Length(1),
-        Constraint::Min(0),
-    ])
-    .areas(content_area);
-
+fn draw_pane_2(frame: &mut Frame, area: Rect, _state: &App) {
     frame.render_widget(
-        Block::new()
-            .borders(Borders::LEFT)
+        Block::bordered()
+            .border_type(BorderType::Thick)
+            .title(
+                Line::from(" 2 ").style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                ),
+            )
             .border_style(Style::default().fg(Color::LightBlue)),
-        divider_area,
+        area,
     );
+}
 
-    let menu_area = menu_area.inner(Margin {
-        horizontal: 3,
-        vertical: 1,
-    });
-
-    let [quick, saved, dependencies, about, exit] = Layout::vertical([
-        Constraint::Length(2),
-        Constraint::Length(2),
-        Constraint::Length(2),
-        Constraint::Length(2),
-        Constraint::Length(2),
-    ])
-    .areas(menu_area);
-
-    if state.selected == 0 {
-        frame.render_widget(
-            Paragraph::new("QUICK CONNECT").style(
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            quick,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("QUICK CONNECT").style(
-                Style::default()
-                    .fg(Color::White)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            quick,
-        );
-    }
-
-    if state.selected == 1 {
-        frame.render_widget(
-            Paragraph::new("SAVED HOSTS").style(
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            saved,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("SAVED HOSTS").style(
-                Style::default()
-                    .fg(Color::White)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            saved,
-        );
-    }
-    if state.selected == 2 {
-        frame.render_widget(
-            Paragraph::new("DEPENDENCIES").style(
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            dependencies,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("DEPENDENCIES").style(
-                Style::default()
-                    .fg(Color::White)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            dependencies,
-        );
-    }
-
-    if state.selected == 3 {
-        frame.render_widget(
-            Paragraph::new("ABOUT").style(
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            about,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("ABOUT").style(
-                Style::default()
-                    .fg(Color::White)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            about,
-        );
-    }
-
-    if state.selected == 4 {
-        frame.render_widget(
-            Paragraph::new("EXIT").style(
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            exit,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("EXIT").style(
-                Style::default()
-                    .fg(Color::White)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            exit,
-        );
-    }
+fn draw_pane_3(frame: &mut Frame, area: Rect, _state: &App) {
+    frame.render_widget(
+        Block::bordered()
+            .border_type(BorderType::Thick)
+            .title(
+                Line::from(" 3 ").style(
+                    Style::default()
+                        .fg(Color::White)
+                        .add_modifier(Modifier::BOLD),
+                ),
+            )
+            .border_style(Style::default().fg(Color::LightBlue)),
+        area,
+    );
 }
