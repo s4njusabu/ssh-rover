@@ -10,12 +10,13 @@ use ratatui::{
 };
 
 const BANNER: &str = include_str!("../../assets/banner.txt");
-pub const MENU_ITEMS: [&str; 5] = [
-    "Quick Connect",
-    "Saved Hosts",
-    "Dependencies",
-    "About",
-    "Exit",
+pub const MENU_ITEMS: [&str; 6] = [
+    "QUICK CONNECT",
+    "SAVED HOSTS",
+    "DEPENDENCIES",
+    "THEMES",
+    "ABOUT",
+    "EXIT",
 ];
 
 // 1
@@ -106,20 +107,155 @@ fn draw_content(frame: &mut Frame, area: Rect, _state: &App) {
 }
 
 // Panes
-fn draw_pane_1(frame: &mut Frame, area: Rect, _state: &App) {
-    frame.render_widget(
-        Block::bordered()
-            .border_type(BorderType::Thick)
-            .title(
-                Line::from(" 1 ").style(
-                    Style::default()
-                        .fg(Color::White)
-                        .add_modifier(Modifier::BOLD),
-                ),
-            )
-            .border_style(Style::default().fg(Color::LightBlue)),
-        area,
-    );
+fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
+    let pane = Block::bordered()
+        .border_type(BorderType::Thick)
+        .title(
+            Line::from(" 1 ").style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        )
+        .border_style(Style::default().fg(Color::LightBlue));
+
+    frame.render_widget(pane.clone(), area);
+
+    let inner = pane.inner(area);
+    let inner = inner.inner(Margin {
+        horizontal: 2,
+        vertical: 1,
+    });
+
+    let [quick, saved, dependencies, themes, about, exit] = Layout::vertical([
+        Constraint::Length(2),
+        Constraint::Length(2),
+        Constraint::Length(2),
+        Constraint::Length(2),
+        Constraint::Length(2),
+        Constraint::Length(2),
+    ])
+    .spacing(1)
+    .areas(inner);
+
+    if state.selected == 0 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[0]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            quick,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[0]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            quick,
+        );
+    }
+
+    if state.selected == 1 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[1]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            saved,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[1]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            saved,
+        );
+    }
+    if state.selected == 2 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[2]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            dependencies,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[2]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            dependencies,
+        );
+    }
+
+    if state.selected == 3 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[3]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            themes,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[3]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            themes,
+        );
+    }
+
+    if state.selected == 4 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[4]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            about,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[4]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            about,
+        );
+    }
+
+    if state.selected == 5 {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[5]).style(
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            exit,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new(MENU_ITEMS[5]).style(
+                Style::default()
+                    .fg(Color::White)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            exit,
+        );
+    }
 }
 
 fn draw_pane_2(frame: &mut Frame, area: Rect, _state: &App) {
