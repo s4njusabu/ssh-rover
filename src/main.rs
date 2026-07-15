@@ -14,7 +14,7 @@ fn main() -> std::io::Result<()> {
 
     loop {
         terminal.draw(|frame| {
-            let inner = border::draw(frame);
+            let inner = border::draw(frame, &app);
 
             match app.view {
                 View::Home => home::draw(frame, inner, &app),

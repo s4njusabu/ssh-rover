@@ -1,31 +1,36 @@
 // Creates the border and title of MuxSSH
+// Added custom color
 
 use ratatui::{
     Frame,
     layout::Rect,
-    style::{Color, Modifier, Style},
+    style::{Modifier, Style},
     text::{Line, Span},
     widgets::{Block, BorderType},
 };
 
-pub fn draw(frame: &mut Frame) -> Rect {
+use crate::app::App;
+
+pub fn draw(frame: &mut Frame, state: &App) -> Rect {
+    let colors = state.theme.colors();
+
     let block = Block::bordered()
         .title(Line::from(vec![
             Span::styled(
                 " Mux",
                 Style::default()
-                    .fg(Color::White)
+                    .fg(colors.mux_text)
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
                 "SSH ",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(colors.ssh_text)
                     .add_modifier(Modifier::BOLD),
             ),
         ]))
         .border_type(BorderType::Thick)
-        .border_style(Style::default().fg(Color::LightBlue));
+        .border_style(Style::default().fg(colors.accent));
 
     let inner = block.inner(frame.area());
 

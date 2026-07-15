@@ -1,0 +1,93 @@
+#![allow(dead_code)]
+
+use ratatui::style::Color;
+
+pub struct ThemeColors {
+    pub accent: Color,
+    pub background: Color,
+    pub banner: Color,
+    pub text: Color,
+    pub warning: Color,
+    pub danger: Color,
+    pub success: Color,
+
+    pub mux_text: Color,
+    pub ssh_text: Color,
+}
+
+pub enum Theme {
+    Default,
+    Red,
+    Blue,
+    Green,
+    Yellow,
+}
+
+impl Theme {
+    pub fn colors(&self) -> ThemeColors {
+        match self {
+            Theme::Default => ThemeColors {
+                accent: Color::LightBlue,
+                background: Color::Black,
+                banner: Color::White,
+                text: Color::White,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::White,
+                ssh_text: Color::LightBlue,
+            },
+            Theme::Red => ThemeColors {
+                accent: Color::LightRed,
+                background: Color::Black,
+                banner: Color::LightRed,
+                text: Color::Red,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+                mux_text: Color::LightRed,
+                ssh_text: Color::LightRed,
+            },
+            Theme::Blue => ThemeColors {
+                accent: Color::LightBlue,
+                background: Color::Black,
+                banner: Color::LightBlue,
+                text: Color::Blue,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::LightBlue,
+                ssh_text: Color::LightBlue,
+            },
+
+            Theme::Green => ThemeColors {
+                accent: Color::LightGreen,
+                background: Color::Black,
+                banner: Color::LightGreen,
+
+                text: Color::Green,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::LightGreen,
+                ssh_text: Color::LightGreen,
+            },
+            Theme::Yellow => ThemeColors {
+                accent: Color::LightYellow,
+                background: Color::Black,
+                banner: Color::LightYellow,
+
+                text: Color::Yellow,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::LightYellow,
+                ssh_text: Color::LightYellow,
+            },
+        }
+    }
+}
