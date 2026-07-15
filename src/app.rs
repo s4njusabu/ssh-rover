@@ -1,11 +1,12 @@
 // State of the App
 use crate::ui::themes::Theme;
 
+#[derive(PartialEq)]
 pub enum View {
-    Home,
     QuickConnect,
     SavedHosts,
     Dependencies,
+    Themes,
     About,
     Exit,
 }
@@ -19,9 +20,9 @@ pub struct App {
 impl App {
     pub fn new() -> Self {
         App {
-            theme: Theme::Yellow,
+            theme: Theme::Default,
             selected: 0,
-            view: View::Home,
+            view: View::QuickConnect,
         }
     }
 }

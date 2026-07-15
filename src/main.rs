@@ -17,10 +17,10 @@ fn main() -> std::io::Result<()> {
             let inner = border::draw(frame, &app);
 
             match app.view {
-                View::Home => home::draw(frame, inner, &app),
                 View::QuickConnect => home::draw(frame, inner, &app),
                 View::SavedHosts => home::draw(frame, inner, &app),
                 View::Dependencies => home::draw(frame, inner, &app),
+                View::Themes => home::draw(frame, inner, &app),
                 View::About => home::draw(frame, inner, &app),
                 View::Exit => {}
             }
@@ -41,10 +41,10 @@ fn main() -> std::io::Result<()> {
                 }
 
                 KeyCode::Enter => match app.selected {
-                    0 => app.view = View::Home,
-                    1 => app.view = View::QuickConnect,
-                    2 => app.view = View::SavedHosts,
-                    3 => app.view = View::Dependencies,
+                    0 => app.view = View::QuickConnect,
+                    1 => app.view = View::SavedHosts,
+                    2 => app.view = View::Dependencies,
+                    3 => app.view = View::Themes,
                     4 => app.view = View::About,
                     5 => app.view = View::Exit,
                     _ => {}
@@ -52,6 +52,10 @@ fn main() -> std::io::Result<()> {
 
                 KeyCode::Esc => break,
                 _ => (),
+            }
+
+            if app.view == View::Exit {
+                break;
             }
         }
     }

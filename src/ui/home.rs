@@ -115,7 +115,7 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
     let pane = Block::bordered()
         .border_type(BorderType::Thick)
         .title(
-            Line::from(" 1◆ ").style(
+            Line::from(" 1 ").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -268,7 +268,7 @@ fn draw_pane_2(frame: &mut Frame, area: Rect, state: &App) {
         Block::bordered()
             .border_type(BorderType::Thick)
             .title(
-                Line::from(" 2◆ ").style(
+                Line::from(" 2 ").style(
                     Style::default()
                         .fg(colors.text)
                         .add_modifier(Modifier::BOLD),
@@ -285,7 +285,7 @@ fn draw_pane_3(frame: &mut Frame, area: Rect, state: &App) {
         Block::bordered()
             .border_type(BorderType::Thick)
             .title(
-                Line::from(" 3◆ ").style(
+                Line::from(" 3 ").style(
                     Style::default()
                         .fg(colors.text)
                         .add_modifier(Modifier::BOLD),
