@@ -11,14 +11,8 @@ use ratatui::{
 };
 
 const BANNER: &str = include_str!("../../assets/banner.txt");
-pub const MENU_ITEMS: [&str; 6] = [
-    "QUICK CONNECT",
-    "SAVED HOSTS",
-    "DEPENDENCIES",
-    "THEMES",
-    "ABOUT",
-    "EXIT",
-];
+
+pub const ITEM_COUNT: usize = 5;
 
 // 1
 // The draw function that calls both banner and content draw functions (this is the main draw function)
@@ -131,8 +125,7 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
         vertical: 1,
     });
 
-    let [quick, saved, dependencies, themes, about, exit] = Layout::vertical([
-        Constraint::Length(2),
+    let [quick, saved, dependencies, themes, exit] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -222,26 +215,6 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
     }
 
     if state.selected == 4 {
-        frame.render_widget(
-            Paragraph::new("❯ ABOUT").style(
-                Style::default()
-                    .fg(colors.accent)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            about,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("  ABOUT").style(
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            about,
-        );
-    }
-
-    if state.selected == 5 {
         frame.render_widget(
             Paragraph::new("❯ EXIT").style(
                 Style::default()

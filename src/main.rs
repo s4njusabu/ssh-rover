@@ -21,7 +21,6 @@ fn main() -> std::io::Result<()> {
                 View::SavedHosts => home::draw(frame, inner, &app),
                 View::Dependencies => home::draw(frame, inner, &app),
                 View::Themes => home::draw(frame, inner, &app),
-                View::About => home::draw(frame, inner, &app),
                 View::Exit => {}
             }
         })?;
@@ -35,7 +34,7 @@ fn main() -> std::io::Result<()> {
                 }
 
                 KeyCode::Down => {
-                    if app.selected < home::MENU_ITEMS.len() - 1 {
+                    if app.selected < home::ITEM_COUNT - 1 {
                         app.selected += 1;
                     }
                 }
@@ -45,8 +44,7 @@ fn main() -> std::io::Result<()> {
                     1 => app.view = View::SavedHosts,
                     2 => app.view = View::Dependencies,
                     3 => app.view = View::Themes,
-                    4 => app.view = View::About,
-                    5 => app.view = View::Exit,
+                    4 => app.view = View::Exit,
                     _ => {}
                 },
 

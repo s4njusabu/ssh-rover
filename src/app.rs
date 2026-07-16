@@ -7,7 +7,6 @@ pub enum View {
     SavedHosts,
     Dependencies,
     Themes,
-    About,
     Exit,
 }
 
