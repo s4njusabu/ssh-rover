@@ -3,10 +3,10 @@ use crate::ui::themes::Theme;
 
 #[derive(PartialEq)]
 pub enum View {
-    QuickConnect,
-    SavedHosts,
+    Discovery,
     Dependencies,
     Themes,
+    About,
     Exit,
 }
 
@@ -21,7 +21,7 @@ impl App {
         App {
             theme: Theme::Default,
             selected: 0,
-            view: View::QuickConnect,
+            view: View::Discovery,
         }
     }
 }

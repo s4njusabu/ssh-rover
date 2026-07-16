@@ -125,7 +125,7 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
         vertical: 1,
     });
 
-    let [quick, saved, dependencies, themes, exit] = Layout::vertical([
+    let [discovery, dependencies, themes, about, exit] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -137,44 +137,25 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
 
     if state.selected == 0 {
         frame.render_widget(
-            Paragraph::new("❯ QUICK CONNECT").style(
+            Paragraph::new("❯ DISCOVERY").style(
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
-            quick,
+            discovery,
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  QUICK CONNECT").style(
+            Paragraph::new("  DISCOVERY").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
             ),
-            quick,
+            discovery,
         );
     }
 
     if state.selected == 1 {
-        frame.render_widget(
-            Paragraph::new("❯ SAVED HOSTS").style(
-                Style::default()
-                    .fg(colors.accent)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            saved,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("  SAVED HOSTS").style(
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            saved,
-        );
-    }
-    if state.selected == 2 {
         frame.render_widget(
             Paragraph::new("❯ DEPENDENCIES").style(
                 Style::default()
@@ -194,7 +175,7 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
         );
     }
 
-    if state.selected == 3 {
+    if state.selected == 2 {
         frame.render_widget(
             Paragraph::new("❯ THEMES").style(
                 Style::default()
@@ -211,6 +192,26 @@ fn draw_pane_1(frame: &mut Frame, area: Rect, state: &App) {
                     .add_modifier(Modifier::BOLD),
             ),
             themes,
+        );
+    }
+
+    if state.selected == 3 {
+        frame.render_widget(
+            Paragraph::new("❯ ABOUT").style(
+                Style::default()
+                    .fg(colors.accent)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            about,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  ABOUT").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            about,
         );
     }
 
