@@ -1,6 +1,7 @@
 // Creates the border and title of MuxSSH
 // Added custom color
 
+use crate::app::App;
 use ratatui::{
     Frame,
     layout::Rect,
@@ -8,8 +9,6 @@ use ratatui::{
     text::{Line, Span},
     widgets::{Block, BorderType},
 };
-
-use crate::app::App;
 
 pub fn draw(frame: &mut Frame, state: &App) -> Rect {
     let colors = state.theme.colors();
