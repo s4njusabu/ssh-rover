@@ -90,6 +90,6 @@ fn draw_content(frame: &mut Frame, area: Rect, state: &App) {
     // Panes
 
     pane1::draw(frame, menu_area, state);
-    pane2::draw(frame, actions_area, state);
-    pane3::draw(frame, output_area, state);
+    pane2::layout::draw(frame, actions_area, state);
+    pane3::layout::draw(frame, output_area, state);
 }

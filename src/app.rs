@@ -2,7 +2,7 @@
 use crate::ui::themes::Theme;
 
 #[derive(PartialEq)]
-pub enum View {
+pub enum Selected {
     Discovery,
     Dependencies,
     Themes,
@@ -12,16 +12,16 @@ pub enum View {
 
 pub struct App {
     pub theme: Theme,
-    pub selected: usize,
-    pub view: View,
+    pub hovered: usize,
+    pub selected: Selected,
 }
 
 impl App {
     pub fn new() -> Self {
         App {
             theme: Theme::Default,
-            selected: 0,
-            view: View::Discovery,
+            hovered: 0,
+            selected: Selected::Discovery,
         }
     }
 }

@@ -1,3 +1,5 @@
+// Im not putting this in a directory because this is static unlike pane 2 or 3
+
 use crate::app::App;
 use ratatui::{
     Frame,
@@ -38,7 +40,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
     .spacing(1)
     .areas(inner);
 
-    if state.selected == 0 {
+    if state.hovered == 0 {
         frame.render_widget(
             Paragraph::new("❯ DISCOVERY").style(
                 Style::default()
@@ -58,7 +60,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         );
     }
 
-    if state.selected == 1 {
+    if state.hovered == 1 {
         frame.render_widget(
             Paragraph::new("❯ DEPENDENCIES").style(
                 Style::default()
@@ -78,7 +80,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         );
     }
 
-    if state.selected == 2 {
+    if state.hovered == 2 {
         frame.render_widget(
             Paragraph::new("❯ THEMES").style(
                 Style::default()
@@ -98,7 +100,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         );
     }
 
-    if state.selected == 3 {
+    if state.hovered == 3 {
         frame.render_widget(
             Paragraph::new("❯ ABOUT").style(
                 Style::default()
@@ -118,7 +120,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
         );
     }
 
-    if state.selected == 4 {
+    if state.hovered == 4 {
         frame.render_widget(
             Paragraph::new("❯ EXIT").style(
                 Style::default()
