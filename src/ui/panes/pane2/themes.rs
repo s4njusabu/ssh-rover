@@ -7,12 +7,14 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub const ITEM_COUNT: usize = 3;
+pub const ITEM_COUNT: usize = 5;
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [current, cidr, manual] = Layout::vertical([
+    let [default, red, green, yellow, blue] = Layout::vertical([
+        Constraint::Length(2),
+        Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -23,61 +25,101 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(0) {
         frame.render_widget(
-            Paragraph::new("❯ SCAN CURRENT NETWORK").style(
+            Paragraph::new("❯ DEFAULT").style(
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
-            current,
+            default,
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  SCAN CURRENT NETWORK").style(
+            Paragraph::new("  DEFAULT").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
             ),
-            current,
+            default,
         );
     }
 
     if hovered == Some(1) {
         frame.render_widget(
-            Paragraph::new("❯ SCAN CIDR RANGE").style(
+            Paragraph::new("❯ RED").style(
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
-            cidr,
+            red,
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  SCAN CIDR RANGE").style(
+            Paragraph::new("  RED").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
             ),
-            cidr,
+            red,
         );
     }
 
     if hovered == Some(2) {
         frame.render_widget(
-            Paragraph::new("❯ MANUAL CONNECT").style(
+            Paragraph::new("❯ GREEN").style(
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
-            manual,
+            green,
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  MANUAL CONNECT").style(
+            Paragraph::new("  GREEN").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
             ),
-            manual,
+            green,
+        );
+    }
+
+    if hovered == Some(3) {
+        frame.render_widget(
+            Paragraph::new("❯ YELLOW").style(
+                Style::default()
+                    .fg(colors.accent)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            yellow,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  YELLOW").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            yellow,
+        );
+    }
+
+    if hovered == Some(4) {
+        frame.render_widget(
+            Paragraph::new("❯ BLUE").style(
+                Style::default()
+                    .fg(colors.accent)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            blue,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  BLUE").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            blue,
         );
     }
 }
