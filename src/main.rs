@@ -1,26 +1,26 @@
 use crossterm::event::{self, Event, KeyCode};
 
-mod app;
+mod state;
 mod ui;
 
-use app::App;
+use state::State;
 use ui::{border, home};
 
-use crate::app::Selected;
+use crate::state::Selected;
 
 fn main() -> std::io::Result<()> {
     let mut terminal = ratatui::init();
-    let mut app = App::new();
+    let mut state = State::new();
 
     loop {
         terminal.draw(|frame| {
-            let inner = border::draw(frame, &app);
+            let inner = border::draw(frame, &state);
 
-            match app.selected {
-                Selected::Discovery => home::draw(frame, inner, &app),
-                Selected::Dependencies => home::draw(frame, inner, &app),
-                Selected::Themes => home::draw(frame, inner, &app),
-                Selected::About => home::draw(frame, inner, &app),
+            match state.selected {
+                Selected::Discovery => home::draw(frame, inner, &state),
+                Selected::Dependencies => home::draw(frame, inner, &state),
+                Selected::Themes => home::draw(frame, inner, &state),
+                Selected::About => home::draw(frame, inner, &state),
                 Selected::Exit => {}
             }
         })?;
@@ -28,23 +28,23 @@ fn main() -> std::io::Result<()> {
         if let Event::Key(key_event) = event::read()? {
             match key_event.code {
                 KeyCode::Up => {
-                    if app.hovered > 0 {
-                        app.hovered -= 1;
+                    if state.hovered > 0 {
+                        state.hovered -= 1;
                     }
                 }
 
                 KeyCode::Down => {
-                    if app.hovered < home::ITEM_COUNT - 1 {
-                        app.hovered += 1;
+                    if state.hovered < home::ITEM_COUNT - 1 {
+                        state.hovered += 1;
                     }
                 }
 
-                KeyCode::Enter => match app.hovered {
-                    0 => app.selected = Selected::Dependencies,
-                    1 => app.selected = Selected::Dependencies,
-                    2 => app.selected = Selected::Themes,
-                    3 => app.selected = Selected::About,
-                    4 => app.selected = Selected::Exit,
+                KeyCode::Enter => match state.hovered {
+                    0 => state.selected = Selected::Dependencies,
+                    1 => state.selected = Selected::Dependencies,
+                    2 => state.selected = Selected::Themes,
+                    3 => state.selected = Selected::About,
+                    4 => state.selected = Selected::Exit,
                     _ => {}
                 },
 
@@ -52,7 +52,7 @@ fn main() -> std::io::Result<()> {
                 _ => (),
             }
 
-            if app.selected == Selected::Exit {
+            if state.selected == Selected::Exit {
                 break;
             }
         }

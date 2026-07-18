@@ -1,4 +1,4 @@
-use crate::app::App;
+use crate::state::State;
 use ratatui::{
     Frame,
     layout::Rect,
@@ -7,7 +7,7 @@ use ratatui::{
     widgets::{Block, BorderType},
 };
 
-pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
+pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
     frame.render_widget(
         Block::bordered()

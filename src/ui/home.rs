@@ -1,7 +1,7 @@
 // Creates the home menu and banner of MuxSSH
 // Added custom color
 
-use crate::app::App;
+use crate::state::State;
 use crate::ui::panes::{pane1, pane2, pane3};
 use ratatui::{
     Frame,
@@ -16,7 +16,7 @@ pub const ITEM_COUNT: usize = 5;
 
 // 1
 // The draw function that calls both banner and content draw functions (this is the main draw function)
-pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
+pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let [banner_area, content_area] =
         Layout::vertical([Constraint::Length(12), Constraint::Min(0)]).areas(area);
 
@@ -25,7 +25,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &App) {
 }
 
 // 2
-fn draw_banner(frame: &mut Frame, area: Rect, state: &App) {
+fn draw_banner(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
     let banner_width = BANNER
         .lines()
@@ -59,7 +59,7 @@ fn draw_banner(frame: &mut Frame, area: Rect, state: &App) {
 }
 
 // 3
-fn draw_content(frame: &mut Frame, area: Rect, state: &App) {
+fn draw_content(frame: &mut Frame, area: Rect, state: &State) {
     // 1
     // container border below the banner; outermost border (the border that holds the panes)
     let colors = state.theme.colors();

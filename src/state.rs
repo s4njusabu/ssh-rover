@@ -11,7 +11,7 @@ pub enum Selected {
 }
 
 #[allow(unused)]
-pub struct App {
+pub struct State {
     pub theme: Theme,
 
     // Pane 1
@@ -23,9 +23,9 @@ pub struct App {
     pub dependency_selected: usize,
 }
 
-impl App {
+impl State {
     pub fn new() -> Self {
-        App {
+        State {
             theme: Theme::Default,
             hovered: 0,
             selected: Selected::Discovery,

@@ -1,4 +1,4 @@
-use crate::app::App;
+use crate::state::State;
 
 use ratatui::{
     Frame,
@@ -7,7 +7,7 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub fn draw(frame: &mut Frame, inner: Rect, state: &App) {
+pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
     let [discovery, dependencies, themes, about, exit] = Layout::vertical([
