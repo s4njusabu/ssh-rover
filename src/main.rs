@@ -6,7 +6,7 @@ mod ui;
 use state::State;
 use ui::{border, home};
 
-use crate::{state::Selected, ui::panes::pane2};
+use crate::{state::Pane1, ui::panes::pane2};
 
 fn main() -> std::io::Result<()> {
     let mut terminal = ratatui::init();
@@ -16,11 +16,11 @@ fn main() -> std::io::Result<()> {
         terminal.draw(|frame| {
             let inner = border::draw(frame, &state);
 
-            match state.selected {
-                Selected::Discovery(_) => home::draw(frame, inner, &state),
-                Selected::Dependencies(_) => home::draw(frame, inner, &state),
-                Selected::Themes(_) => home::draw(frame, inner, &state),
-                Selected::About(_) => home::draw(frame, inner, &state),
+            match state.pane1_selected {
+                Pane1::Discovery(_) => home::draw(frame, inner, &state),
+                Pane1::Dependencies(_) => home::draw(frame, inner, &state),
+                Pane1::Themes(_) => home::draw(frame, inner, &state),
+                Pane1::About(_) => home::draw(frame, inner, &state),
                 _ => {}
             }
         })?;
@@ -42,33 +42,33 @@ fn main() -> std::io::Result<()> {
 
                     KeyCode::Enter => match state.hovered {
                         0 => {
-                            state.selected = Selected::Discovery(pane2::discovery::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Discovery(pane2::discovery::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
 
                             state.pane2_hovered = Some(0);
                         }
                         1 => {
-                            state.selected =
-                                Selected::Dependencies(pane2::dependencies::ITEM_COUNT);
+                            state.pane1_selected =
+                                Pane1::Dependencies(pane2::dependencies::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
                         }
                         2 => {
-                            state.selected = Selected::Themes(pane2::themes::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Themes(pane2::themes::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
                         }
                         3 => {
-                            state.selected = Selected::About(pane2::about::ITEM_COUNT);
+                            state.pane1_selected = Pane1::About(pane2::about::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
                         }
                         4 => {
-                            state.selected = Selected::Exit;
+                            state.pane1_selected = Pane1::Exit;
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
@@ -79,18 +79,17 @@ fn main() -> std::io::Result<()> {
                     _ => {}
                 }
 
-                if state.selected == Selected::Exit {
+                if state.pane1_selected == Pane1::Exit {
                     break;
                 }
             }
         } else {
             if let Event::Key(key_event) = event::read()? {
-
-                match state.selected {
-                    Selected::Discovery(index)
-                    | Selected::Dependencies(index)
-                    | Selected::Themes(index)
-                    | Selected::About(index) => match key_event.code {
+                match state.pane1_selected {
+                    Pane1::Discovery(index)
+                    | Pane1::Dependencies(index)
+                    | Pane1::Themes(index)
+                    | Pane1::About(index) => match key_event.code {
                         KeyCode::Up => {
                             let t1 = state.pane2_hovered.unwrap();
                             if t1 > 0 {
@@ -103,6 +102,14 @@ fn main() -> std::io::Result<()> {
                             if t1 < index - 1 {
                                 let t2 = t1 + 1;
                                 state.pane2_hovered = Some(t2);
+                            }
+                        }
+                        KeyCode::Enter => {
+                            state.pane2_selected = state.pane2_hovered.unwrap();
+                            if state.pane2_selected == index - 1 {
+                                state.in_pane1 = true;
+                                state.in_pane2 = false;
+                                state.pane2_hovered = None;
                             }
                         }
                         _ => {}

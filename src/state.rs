@@ -2,13 +2,12 @@
 use crate::ui::{panes::pane2, themes::Theme};
 
 #[derive(PartialEq)]
-pub enum Selected {
+pub enum Pane1 {
     Discovery(usize),
     Dependencies(usize),
     Themes(usize),
     About(usize),
     Exit,
-    Back,
 }
 
 pub struct State {
@@ -17,7 +16,7 @@ pub struct State {
     // Pane 1
     pub in_pane1: bool,
     pub hovered: usize,
-    pub selected: Selected,
+    pub pane1_selected: Pane1,
 
     // Pane 2
     pub in_pane2: bool,
@@ -31,7 +30,7 @@ impl State {
             theme: Theme::Default,
             in_pane1: true,
             hovered: 0,
-            selected: Selected::Discovery(pane2::discovery::ITEM_COUNT),
+            pane1_selected: Pane1::Discovery(pane2::discovery::ITEM_COUNT),
 
             in_pane2: false,
             pane2_hovered: None,
