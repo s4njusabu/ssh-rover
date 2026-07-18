@@ -17,7 +17,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &App) {
         Constraint::Length(2),
         Constraint::Length(2),
     ])
-    .spacing(1)
     .areas(inner);
 
     if state.hovered == 0 {
