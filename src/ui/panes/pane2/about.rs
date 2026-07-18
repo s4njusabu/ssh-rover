@@ -7,7 +7,7 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub const ITEM_COUNT: usize = 2;
+pub const ITEM_COUNT: usize = 2 + 1;
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();

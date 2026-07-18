@@ -7,12 +7,13 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub const ITEM_COUNT: usize = 5;
+pub const ITEM_COUNT: usize = 5 + 1;
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [default, red, green, yellow, blue] = Layout::vertical([
+    let [default, red, green, yellow, blue, back] = Layout::vertical([
+        Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -27,7 +28,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ DEFAULT").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(ratatui::style::Color::LightBlue)
                     .add_modifier(Modifier::BOLD),
             ),
             default,
@@ -47,7 +48,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ RED").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(ratatui::style::Color::LightRed)
                     .add_modifier(Modifier::BOLD),
             ),
             red,
@@ -67,7 +68,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ GREEN").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(ratatui::style::Color::LightGreen)
                     .add_modifier(Modifier::BOLD),
             ),
             green,
@@ -87,7 +88,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ YELLOW").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(ratatui::style::Color::LightYellow)
                     .add_modifier(Modifier::BOLD),
             ),
             yellow,
@@ -107,7 +108,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ BLUE").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(ratatui::style::Color::LightBlue)
                     .add_modifier(Modifier::BOLD),
             ),
             blue,
@@ -121,5 +122,27 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             ),
             blue,
         );
+    }
+
+    if state.in_pane2 == true {
+        if hovered == Some(5) {
+            frame.render_widget(
+                Paragraph::new("❯ BACK").style(
+                    Style::default()
+                        .fg(colors.accent)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                back,
+            );
+        } else {
+            frame.render_widget(
+                Paragraph::new("  BACK").style(
+                    Style::default()
+                        .fg(colors.text)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                back,
+            );
+        }
     }
 }
