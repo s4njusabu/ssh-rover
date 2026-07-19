@@ -1,5 +1,6 @@
 use crossterm::event::{self, Event, KeyCode};
 
+mod services;
 mod state;
 mod ui;
 
@@ -29,6 +30,7 @@ fn main() -> std::io::Result<()> {
         })?;
 
         if state.in_pane1 {
+            // In pane 1
             if let Event::Key(key_event) = event::read()? {
                 match key_event.code {
                     KeyCode::Up => {
@@ -87,6 +89,7 @@ fn main() -> std::io::Result<()> {
                 }
             }
         } else {
+            // In pane 2
             if let Event::Key(key_event) = event::read()? {
                 match state.pane1_selected {
                     Pane1::Discovery(index)

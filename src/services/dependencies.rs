@@ -1,6 +1,4 @@
-#![allow(dead_code)]
-
-use std::fs;
+use std::{fs, process::Command};
 
 pub const FAMILIES: [(&str, &str, &str, &str); 3] = [
     ("arch", "pacman", "nmap", "openssh"),
@@ -21,6 +19,21 @@ fn get_os_id() -> std::io::Result<String> {
     }
 
     Ok(String::from("ID not found"))
+}
+
+// Installed or not
+pub fn nmap_installed() -> bool {
+    match Command::new("nmap").arg("--version").output() {
+        Ok(_) => true,
+        Err(_) => false,
+    }
+}
+
+pub fn openssh_installed() -> bool {
+    match Command::new("ssh").arg("-V").output() {
+        Ok(_) => true,
+        Err(_) => false,
+    }
 }
 
 // setup the systemd if not setup
