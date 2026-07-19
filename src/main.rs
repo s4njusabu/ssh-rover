@@ -80,7 +80,7 @@ fn main() -> std::io::Result<()> {
                         }
                         _ => {}
                     },
-                    KeyCode::Esc => break,
+                    KeyCode::Esc | KeyCode::Char('q') => break,
                     _ => {}
                 }
 
@@ -101,6 +101,8 @@ fn main() -> std::io::Result<()> {
                             if t1 > 0 {
                                 state.pane2_hovered = Some(t1 - 1);
                             }
+
+                            state.pane2_selected = usize::MAX;
                         }
                         KeyCode::Down => {
                             let t1 = state.pane2_hovered.unwrap();
@@ -109,6 +111,7 @@ fn main() -> std::io::Result<()> {
                                 let t2 = t1 + 1;
                                 state.pane2_hovered = Some(t2);
                             }
+                            state.pane2_selected = usize::MAX;
                         }
                         KeyCode::Enter => {
                             state.pane2_selected = state.pane2_hovered.unwrap();
@@ -119,23 +122,34 @@ fn main() -> std::io::Result<()> {
                                 state.pane2_selected = usize::MAX;
                             }
                         }
-                        KeyCode::Esc => break,
+                        KeyCode::Esc | KeyCode::Char('q') if !state.in_pane3 => {
+                            break;
+                        }
                         _ => {}
                     },
+
                     _ => {}
                 }
 
-                // Themes
-                if state.in_pane2
-                    && let Pane1::Themes(_) = state.pane1_selected
-                {
-                    match state.pane2_selected {
-                        0 => state.theme = Theme::Default,
-                        1 => state.theme = Theme::Red,
-                        2 => state.theme = Theme::Blue,
-                        3 => state.theme = Theme::Green,
-                        4 => state.theme = Theme::Yellow,
-                        _ => {}
+                if state.in_pane2 {
+                    match state.pane1_selected {
+                        Pane1::Discovery(_) => {}
+                        Pane1::Dependencies(_) => match state.pane2_selected {
+                            1 => state.pane3_selected = 1,
+                            2 => state.pane3_selected = 2,
+                            3 => state.pane3_selected = 3,
+                            _ => {}
+                        },
+                        Pane1::Themes(_) => match state.pane2_selected {
+                            0 => state.theme = Theme::Default,
+                            1 => state.theme = Theme::Red,
+                            2 => state.theme = Theme::Blue,
+                            3 => state.theme = Theme::Green,
+                            4 => state.theme = Theme::Yellow,
+                            _ => {}
+                        },
+                        Pane1::About(_) => {}
+                        Pane1::Exit => {}
                     }
                 }
             }
