@@ -116,6 +116,7 @@ fn main() -> std::io::Result<()> {
                                 state.in_pane1 = true;
                                 state.in_pane2 = false;
                                 state.pane2_hovered = None;
+                                state.pane2_selected = usize::MAX;
                             }
                         }
                         KeyCode::Esc => break,

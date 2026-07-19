@@ -32,6 +32,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         Some(0) => dependencies::check_status::draw(frame, inner, state),
         Some(1) => dependencies::install_nmap::draw(frame, inner, state),
         Some(2) => dependencies::install_openssh::draw(frame, inner, state),
+        Some(3) => dependencies::install_both::draw(frame, inner, state),
         _ => {}
     }
 }

@@ -22,7 +22,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     // Title
     frame.render_widget(
-        Paragraph::new("OPENSSH IS USED TO SECURELY CONNECT TO REMOTE SYSTEMS").style(
+        Paragraph::new("INSTALLS BOTH NMAP AND OPENSSH").style(
             Style::default()
                 .fg(colors.accent)
                 .add_modifier(Modifier::BOLD),
@@ -31,8 +31,8 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     );
 
     // Status
-    let is_openssh_installed = crate::services::dependencies::openssh_installed();
-    if is_openssh_installed {
+    let is_nmap_installed = crate::services::dependencies::nmap_installed();
+    if is_nmap_installed {
         frame.render_widget(
             Paragraph::new(Line::from(vec![
                 Span::styled(
@@ -118,7 +118,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     // Package
 
     let package_manager = super::package_manager::package_manager(&hostname);
-    let openssh_name = super::package_manager::openssh_package_name(package_manager).replace(" ", ", ");
+    let nmap_name = super::package_manager::nmap_package_name(package_manager);
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![
@@ -129,7 +129,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                openssh_name,
+                nmap_name,
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
@@ -139,8 +139,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     );
 
     // Command
-    let command_to_install_openssh =
-        super::package_manager::openssh_package_install(package_manager);
+    let command_to_install_nmap = super::package_manager::nmap_package_install(package_manager);
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![
@@ -151,7 +150,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                command_to_install_openssh,
+                command_to_install_nmap,
                 Style::default()
                     .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
