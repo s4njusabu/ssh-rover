@@ -1,17 +1,9 @@
-#![allow(dead_code)]
-
-use std::fs;
-
-pub const FAMILIES: [(&str, &str, &str, &str); 3] = [
-    ("arch", "pacman", "nmap", "openssh"),
-    ("debian", "apt", "nmap", "openssh-server"),
-    ("rhel", "dnf", "nmap", "openssh"),
-];
+use std::{fs, process::Command};
 
 // Get OS name
 // arch for archlinux
 // ubuntu for ubuntu
-fn get_os_id() -> std::io::Result<String> {
+pub fn get_os_id() -> std::io::Result<String> {
     let output = fs::read_to_string("/etc/os-release")?;
 
     for line in output.lines() {
@@ -20,7 +12,22 @@ fn get_os_id() -> std::io::Result<String> {
         }
     }
 
-    Ok(String::from("ID not found"))
+    Ok(String::from("NOT FOUND"))
+}
+
+// Installed or not
+pub fn nmap_installed() -> bool {
+    Command::new("nmap")
+        .arg("--version")
+        .output()
+        .is_ok_and(|output| output.status.success())
+}
+
+pub fn openssh_installed() -> bool {
+    Command::new("ssh")
+        .arg("-V")
+        .output()
+        .is_ok_and(|output| output.status.success())
 }
 
 // setup the systemd if not setup

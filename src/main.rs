@@ -1,5 +1,6 @@
 use crossterm::event::{self, Event, KeyCode};
 
+mod services;
 mod state;
 mod ui;
 
@@ -29,6 +30,7 @@ fn main() -> std::io::Result<()> {
         })?;
 
         if state.in_pane1 {
+            // In pane 1
             if let Event::Key(key_event) = event::read()? {
                 match key_event.code {
                     KeyCode::Up => {
@@ -87,6 +89,7 @@ fn main() -> std::io::Result<()> {
                 }
             }
         } else {
+            // In pane 2
             if let Event::Key(key_event) = event::read()? {
                 match state.pane1_selected {
                     Pane1::Discovery(index)
@@ -113,6 +116,7 @@ fn main() -> std::io::Result<()> {
                                 state.in_pane1 = true;
                                 state.in_pane2 = false;
                                 state.pane2_hovered = None;
+                                state.pane2_selected = usize::MAX;
                             }
                         }
                         KeyCode::Esc => break,
@@ -122,16 +126,16 @@ fn main() -> std::io::Result<()> {
                 }
 
                 // Themes
-                if state.in_pane2 {
-                    if let Pane1::Themes(_) = state.pane1_selected {
-                        match state.pane2_selected {
-                            0 => state.theme = Theme::Default,
-                            1 => state.theme = Theme::Red,
-                            2 => state.theme = Theme::Blue,
-                            3 => state.theme = Theme::Green,
-                            4 => state.theme = Theme::Yellow,
-                            _ => {}
-                        }
+                if state.in_pane2
+                    && let Pane1::Themes(_) = state.pane1_selected
+                {
+                    match state.pane2_selected {
+                        0 => state.theme = Theme::Default,
+                        1 => state.theme = Theme::Red,
+                        2 => state.theme = Theme::Blue,
+                        3 => state.theme = Theme::Green,
+                        4 => state.theme = Theme::Yellow,
+                        _ => {}
                     }
                 }
             }
