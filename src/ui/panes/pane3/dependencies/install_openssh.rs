@@ -116,9 +116,9 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     }
 
     // Package
-
     let package_manager = super::package_manager::package_manager(&hostname);
-    let openssh_name = super::package_manager::openssh_package_name(package_manager).replace(" ", ", ");
+    let openssh_name =
+        super::package_manager::openssh_package_name(package_manager).replace(" ", ", ");
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![

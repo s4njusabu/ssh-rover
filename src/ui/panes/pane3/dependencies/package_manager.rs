@@ -50,3 +50,14 @@ pub fn openssh_package_install(name: &str) -> &'static str {
         _ => "UNKNOWN",
     }
 }
+
+pub fn install_nmap_and_openssh(package_manager: &str, package_names: &str) -> String {
+    match package_manager {
+        "pacman" => format!("sudo pacman -S --needed {package_names}"),
+        "apt" => format!("sudo apt install {package_names}"),
+        "dnf" => format!("sudo dnf install {package_names}"),
+        "zypper" => format!("sudo zypper install {package_names}"),
+        "apk" => format!("sudo apk install {package_names}"),
+        _ => "UNKNOWN".to_string(),
+    }
+}
