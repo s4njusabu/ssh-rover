@@ -82,7 +82,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     }
 
-    if state.in_pane2 == true {
+    if state.in_pane2 {
         if hovered == Some(3) {
             frame.render_widget(
                 Paragraph::new("❯ BACK").style(
