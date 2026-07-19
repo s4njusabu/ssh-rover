@@ -6,7 +6,10 @@ mod ui;
 use state::State;
 use ui::{border, home};
 
-use crate::{state::Pane1, ui::panes::pane2};
+use crate::{
+    state::Pane1,
+    ui::{panes::pane2, themes::Theme},
+};
 
 fn main() -> std::io::Result<()> {
     let mut terminal = ratatui::init();
@@ -112,9 +115,24 @@ fn main() -> std::io::Result<()> {
                                 state.pane2_hovered = None;
                             }
                         }
+                        KeyCode::Esc => break,
                         _ => {}
                     },
                     _ => {}
+                }
+
+                // Themes
+                if state.in_pane2 {
+                    if let Pane1::Themes(_) = state.pane1_selected {
+                        match state.pane2_selected {
+                            0 => state.theme = Theme::Default,
+                            1 => state.theme = Theme::Red,
+                            2 => state.theme = Theme::Blue,
+                            3 => state.theme = Theme::Green,
+                            4 => state.theme = Theme::Yellow,
+                            _ => {}
+                        }
+                    }
                 }
             }
         }

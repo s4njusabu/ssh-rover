@@ -12,7 +12,7 @@ pub const ITEM_COUNT: usize = 5 + 1;
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [default, red, green, yellow, blue, back] = Layout::vertical([
+    let [default, red, blue, green, yellow, back] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -28,7 +28,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ DEFAULT").style(
                 Style::default()
-                    .fg(ratatui::style::Color::LightBlue)
+                    .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
             default,
@@ -48,7 +48,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ RED").style(
                 Style::default()
-                    .fg(ratatui::style::Color::LightRed)
+                    .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
             red,
@@ -66,9 +66,29 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(2) {
         frame.render_widget(
+            Paragraph::new("❯ BLUE").style(
+                Style::default()
+                    .fg(colors.accent)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            blue,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  BLUE").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            blue,
+        );
+    }
+
+    if hovered == Some(3) {
+        frame.render_widget(
             Paragraph::new("❯ GREEN").style(
                 Style::default()
-                    .fg(ratatui::style::Color::LightGreen)
+                    .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
             green,
@@ -84,11 +104,11 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     }
 
-    if hovered == Some(3) {
+    if hovered == Some(4) {
         frame.render_widget(
             Paragraph::new("❯ YELLOW").style(
                 Style::default()
-                    .fg(ratatui::style::Color::LightYellow)
+                    .fg(colors.accent)
                     .add_modifier(Modifier::BOLD),
             ),
             yellow,
@@ -101,26 +121,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
             yellow,
-        );
-    }
-
-    if hovered == Some(4) {
-        frame.render_widget(
-            Paragraph::new("❯ BLUE").style(
-                Style::default()
-                    .fg(ratatui::style::Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            blue,
-        );
-    } else {
-        frame.render_widget(
-            Paragraph::new("  BLUE").style(
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            blue,
         );
     }
 
