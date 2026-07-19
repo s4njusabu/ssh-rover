@@ -22,6 +22,11 @@ pub struct State {
     pub in_pane2: bool,
     pub pane2_hovered: Option<usize>,
     pub pane2_selected: usize,
+
+    // Pane 3
+    pub in_pane3: bool,
+    pub pane3_hovered: Option<usize>,
+    pub pane3_selected: usize,
 }
 
 impl State {
@@ -35,6 +40,10 @@ impl State {
             in_pane2: false,
             pane2_hovered: None,
             pane2_selected: 0,
+
+            in_pane3: false,
+            pane3_hovered: None,
+            pane3_selected: 0,
         }
     }
 }

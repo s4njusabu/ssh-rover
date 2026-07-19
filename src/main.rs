@@ -125,16 +125,16 @@ fn main() -> std::io::Result<()> {
                 }
 
                 // Themes
-                if state.in_pane2 {
-                    if let Pane1::Themes(_) = state.pane1_selected {
-                        match state.pane2_selected {
-                            0 => state.theme = Theme::Default,
-                            1 => state.theme = Theme::Red,
-                            2 => state.theme = Theme::Blue,
-                            3 => state.theme = Theme::Green,
-                            4 => state.theme = Theme::Yellow,
-                            _ => {}
-                        }
+                if state.in_pane2
+                    && let Pane1::Themes(_) = state.pane1_selected
+                {
+                    match state.pane2_selected {
+                        0 => state.theme = Theme::Default,
+                        1 => state.theme = Theme::Red,
+                        2 => state.theme = Theme::Blue,
+                        3 => state.theme = Theme::Green,
+                        4 => state.theme = Theme::Yellow,
+                        _ => {}
                     }
                 }
             }

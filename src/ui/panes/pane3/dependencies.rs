@@ -10,7 +10,7 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
+pub fn draw_check_status(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
     let [title, nmap, openssh] = Layout::vertical([
@@ -107,4 +107,8 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             openssh,
         );
     }
+}
+
+pub fn draw_install_nmap(frame: &mut Frame, inner: Rect, state: &State) {
+
 }

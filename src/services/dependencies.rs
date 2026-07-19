@@ -23,17 +23,17 @@ fn get_os_id() -> std::io::Result<String> {
 
 // Installed or not
 pub fn nmap_installed() -> bool {
-    match Command::new("nmap").arg("--version").output() {
-        Ok(_) => true,
-        Err(_) => false,
-    }
+    Command::new("nmap")
+        .arg("--version")
+        .output()
+        .is_ok_and(|output| output.status.success())
 }
 
 pub fn openssh_installed() -> bool {
-    match Command::new("ssh").arg("-V").output() {
-        Ok(_) => true,
-        Err(_) => false,
-    }
+    Command::new("ssh")
+        .arg("-V")
+        .output()
+        .is_ok_and(|output| output.status.success())
 }
 
 // setup the systemd if not setup

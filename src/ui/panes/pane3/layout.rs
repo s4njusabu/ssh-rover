@@ -28,8 +28,9 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         vertical: 1,
     });
 
-    match state.hovered {
-        1 => dependencies::draw(frame, inner, state),
+    match state.pane2_hovered {
+        Some(0) => dependencies::draw_check_status(frame, inner, state),
+        Some(1) => dependencies::draw_install_nmap(frame, inner, state),
         _ => {}
     }
 }
