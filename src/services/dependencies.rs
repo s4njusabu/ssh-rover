@@ -1,15 +1,9 @@
 use std::{fs, process::Command};
 
-pub const FAMILIES: [(&str, &str, &str, &str); 3] = [
-    ("arch", "pacman", "nmap", "openssh"),
-    ("debian", "apt", "nmap", "openssh-server"),
-    ("rhel", "dnf", "nmap", "openssh"),
-];
-
 // Get OS name
 // arch for archlinux
 // ubuntu for ubuntu
-fn get_os_id() -> std::io::Result<String> {
+pub fn get_os_id() -> std::io::Result<String> {
     let output = fs::read_to_string("/etc/os-release")?;
 
     for line in output.lines() {
@@ -18,7 +12,7 @@ fn get_os_id() -> std::io::Result<String> {
         }
     }
 
-    Ok(String::from("ID not found"))
+    Ok(String::from("NOT FOUND"))
 }
 
 // Installed or not

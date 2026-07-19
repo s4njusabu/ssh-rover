@@ -29,8 +29,9 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     });
 
     match state.pane2_hovered {
-        Some(0) => dependencies::draw_check_status(frame, inner, state),
-        Some(1) => dependencies::draw_install_nmap(frame, inner, state),
+        Some(0) => dependencies::check_status::draw(frame, inner, state),
+        Some(1) => dependencies::install_nmap::draw(frame, inner, state),
+        Some(2) => dependencies::install_openssh::draw(frame, inner, state),
         _ => {}
     }
 }

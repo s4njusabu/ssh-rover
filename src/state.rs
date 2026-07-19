@@ -10,6 +10,7 @@ pub enum Pane1 {
     Exit,
 }
 
+#[allow(unused)]
 pub struct State {
     pub theme: Theme,
 
