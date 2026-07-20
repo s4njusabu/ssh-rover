@@ -27,7 +27,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ CHECK STATUS").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             status,
@@ -47,7 +47,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ INSTALL NMAP").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             nmap,
@@ -67,7 +67,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ INSTALL OPENSSH").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             openssh,
@@ -87,7 +87,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ INSTALL BOTH").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             both,
@@ -108,7 +108,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new("❯ BACK").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 back,

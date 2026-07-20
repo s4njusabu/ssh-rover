@@ -46,6 +46,8 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
             Some(2) => themes::blue::draw(frame, inner, state),
             Some(3) => themes::green::draw(frame, inner, state),
             Some(4) => themes::yellow::draw(frame, inner, state),
+            Some(5) => themes::magenta::draw(frame, inner, state),
+            Some(6) => themes::gray::draw(frame, inner, state),
             _ => {}
         },
         Pane1::About(_) => {}

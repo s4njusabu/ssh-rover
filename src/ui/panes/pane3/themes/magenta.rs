@@ -58,7 +58,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(Color::LightMagenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -98,7 +98,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(Color::LightMagenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -116,7 +116,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::Blue)
+                    .fg(Color::Magenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -134,7 +134,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(Color::LightMagenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -206,7 +206,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(Color::LightMagenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -224,7 +224,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 "████████",
                 Style::default()
-                    .fg(Color::LightBlue)
+                    .fg(Color::LightMagenta)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),

@@ -151,6 +151,8 @@ fn main() -> std::io::Result<()> {
                             2 => state.theme = Theme::Blue,
                             3 => state.theme = Theme::Green,
                             4 => state.theme = Theme::Yellow,
+                            5 => state.theme = Theme::Magenta,
+                            6 => state.theme = Theme::Gray,
                             _ => {}
                         },
                         Pane1::About(_) => {}
