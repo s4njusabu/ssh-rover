@@ -1,23 +1,27 @@
 use ratatui::{
     Frame,
     layout::{Constraint, Layout, Rect},
-    style::{Modifier, Style},
+    style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::Paragraph,
 };
 
-use crate::{services, state::State};
+use crate::{
+    services,
+    state::{Pane3InstallState, State},
+};
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
+    let [info, footer] = Layout::vertical([Constraint::Min(0), Constraint::Length(1)]).areas(inner);
     let [title, distro, package, command] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
     ])
-    .areas(inner);
+    .areas(info);
 
     // Title
     frame.render_widget(
@@ -122,4 +126,54 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         ])),
         command,
     );
+
+    if !state.nmap_installed || !state.openssh_installed {
+        let footer_text = match state.pane3_nmap_install_state {
+            Pane3InstallState::Ready => "PRESS ENTER TO INSTALL",
+            Pane3InstallState::Password => "❯ ENTER SUDO PASSWORD:",
+            Pane3InstallState::Installing => "INSTALLING...",
+            Pane3InstallState::Success => "✓ INSTALLED SUCCESSFULLY",
+            Pane3InstallState::Failed => "✗ INSTALLATION FAILED",
+        };
+
+        if state.pane3_both_install_state == Pane3InstallState::Failed {
+            frame.render_widget(
+                Paragraph::new(footer_text).style(
+                    Style::default()
+                        .fg(Color::LightRed)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                footer,
+            );
+        } else {
+            frame.render_widget(
+                Paragraph::new(footer_text).style(
+                    Style::default()
+                        .fg(colors.accent)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                footer,
+            );
+        }
+    } else {
+        if state.pane2_selected == 3 {
+            frame.render_widget(
+                Paragraph::new("✓ BOTH ARE INSTALLED").style(
+                    Style::default()
+                        .fg(colors.accent)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                footer,
+            );
+        } else {
+            frame.render_widget(
+                Paragraph::new("").style(
+                    Style::default()
+                        .fg(colors.accent)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                footer,
+            );
+        }
+    }
 }

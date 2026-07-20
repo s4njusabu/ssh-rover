@@ -4,6 +4,7 @@ mod services;
 mod state;
 mod ui;
 
+use ratatui::{style::Style, widgets::Block};
 use state::State;
 use ui::{border, home};
 
@@ -18,6 +19,10 @@ fn main() -> std::io::Result<()> {
 
     loop {
         terminal.draw(|frame| {
+            frame.render_widget(
+                Block::default().style(Style::default().bg(state.theme.colors().background)),
+                frame.area(),
+            );
             let inner = border::draw(frame, &state);
 
             match state.pane1_selected {

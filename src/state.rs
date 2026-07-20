@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 // State of the App
 use crate::{
     services,
@@ -31,7 +29,6 @@ pub enum Pane3InstallState {
     Failed,
 }
 
-#[allow(unused)]
 pub struct State {
     pub theme: Theme,
 
@@ -56,6 +53,7 @@ pub struct State {
 
     pub pane3_nmap_install_state: Pane3InstallState,
     pub pane3_openssh_install_state: Pane3InstallState,
+    pub pane3_both_install_state: Pane3InstallState,
     pub install_target: InstallTarget,
     pub pane3_install_password_input: String,
 }
@@ -84,11 +82,13 @@ impl State {
 
             pane3_nmap_install_state: Pane3InstallState::Ready,
             pane3_openssh_install_state: Pane3InstallState::Ready,
+            pane3_both_install_state: Pane3InstallState::Ready,
             install_target: InstallTarget::None,
             pane3_install_password_input: String::new(),
         }
     }
 
+    #[allow(unused)]
     pub fn refresh_dependencies(&mut self) {
         self.nmap_installed = services::dependencies::nmap_installed();
         self.openssh_installed = services::dependencies::openssh_installed();
