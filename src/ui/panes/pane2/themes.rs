@@ -7,12 +7,14 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-pub const ITEM_COUNT: usize = 5 + 1;
+pub const ITEM_COUNT: usize = 7 + 1;
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [default, red, blue, green, yellow, back] = Layout::vertical([
+    let [default, red, blue, green, yellow, magenta, gray, back] = Layout::vertical([
+        Constraint::Length(2),
+        Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -28,7 +30,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ DEFAULT").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             default,
@@ -48,7 +50,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ RED").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             red,
@@ -68,7 +70,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ BLUE").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             blue,
@@ -88,7 +90,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ GREEN").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             green,
@@ -108,7 +110,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ YELLOW").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             yellow,
@@ -124,12 +126,52 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     }
 
+    if hovered == Some(5) {
+        frame.render_widget(
+            Paragraph::new("❯ MAGENTA").style(
+                Style::default()
+                    .fg(colors.active)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            magenta,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  MAGENTA").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            magenta,
+        );
+    }
+
+    if hovered == Some(6) {
+        frame.render_widget(
+            Paragraph::new("❯ GRAY").style(
+                Style::default()
+                    .fg(colors.active)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            gray,
+        );
+    } else {
+        frame.render_widget(
+            Paragraph::new("  GRAY").style(
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            gray,
+        );
+    }
+
     if state.in_pane2 {
-        if hovered == Some(5) {
+        if hovered == Some(7) {
             frame.render_widget(
                 Paragraph::new("❯ BACK").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 back,

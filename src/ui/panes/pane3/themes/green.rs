@@ -17,12 +17,14 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         background,
         banner,
         text,
+        active,
         warning,
         danger,
         success,
         mux_text,
         ssh_text,
     ] = Layout::vertical([
+        Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -120,6 +122,25 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         ])),
         text,
     );
+
+    frame.render_widget(
+        Paragraph::new(Line::from(vec![
+            Span::styled(
+                format!("{:<15}", "ACTIVE"),
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(
+                "████████",
+                Style::default()
+                    .fg(Color::LightGreen)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        ])),
+        active,
+    );
+
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(

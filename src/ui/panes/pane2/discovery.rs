@@ -26,7 +26,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ SCAN CURRENT NETWORK").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             current,
@@ -46,7 +46,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ SCAN CIDR RANGE").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             cidr,
@@ -66,7 +66,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ MANUAL CONNECT").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             manual,
@@ -87,7 +87,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new("❯ BACK").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 back,

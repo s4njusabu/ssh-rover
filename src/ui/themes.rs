@@ -5,6 +5,7 @@ pub struct ThemeColors {
     pub background: Color,
     pub banner: Color,
     pub text: Color,
+    pub active: Color,
     pub warning: Color,
     pub danger: Color,
     pub success: Color,
@@ -19,6 +20,8 @@ pub enum Theme {
     Blue,
     Green,
     Yellow,
+    Magenta,
+    Gray,
 }
 
 impl Theme {
@@ -29,6 +32,7 @@ impl Theme {
                 background: Color::Black,
                 banner: Color::White,
                 text: Color::White,
+                active: Color::LightBlue,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
@@ -41,6 +45,7 @@ impl Theme {
                 background: Color::Black,
                 banner: Color::LightRed,
                 text: Color::Red,
+                active: Color::LightRed,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
@@ -52,6 +57,7 @@ impl Theme {
                 background: Color::Black,
                 banner: Color::LightBlue,
                 text: Color::Blue,
+                active: Color::LightBlue,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
@@ -66,6 +72,7 @@ impl Theme {
                 banner: Color::LightGreen,
 
                 text: Color::Green,
+                active: Color::LightGreen,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
@@ -79,12 +86,41 @@ impl Theme {
                 banner: Color::LightYellow,
 
                 text: Color::Yellow,
+                active: Color::LightYellow,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
                 mux_text: Color::LightYellow,
                 ssh_text: Color::LightYellow,
+            },
+            Theme::Magenta => ThemeColors {
+                accent: Color::LightMagenta,
+                background: Color::Black,
+                banner: Color::LightMagenta,
+
+                text: Color::Magenta,
+                active: Color::LightMagenta,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::LightMagenta,
+                ssh_text: Color::LightMagenta,
+            },
+            Theme::Gray => ThemeColors {
+                accent: Color::DarkGray,
+                background: Color::Black,
+                banner: Color::Gray,
+
+                text: Color::DarkGray,
+                active: Color::White,
+                warning: Color::LightYellow,
+                danger: Color::LightRed,
+                success: Color::LightGreen,
+
+                mux_text: Color::DarkGray,
+                ssh_text: Color::DarkGray,
             },
         }
     }

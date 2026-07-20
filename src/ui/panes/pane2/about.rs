@@ -25,7 +25,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ GITHUB").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             github,
@@ -45,7 +45,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ AUR").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             aur,
@@ -66,7 +66,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new("❯ BACK").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 back,

@@ -23,7 +23,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ DISCOVERY").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             discovery,
@@ -43,7 +43,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ DEPENDENCIES").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             dependencies,
@@ -63,7 +63,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ THEMES").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             themes,
@@ -83,7 +83,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ ABOUT").style(
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             about,
@@ -103,7 +103,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         frame.render_widget(
             Paragraph::new("❯ EXIT").style(
                 Style::default()
-                    .fg(colors.danger)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
             exit,
