@@ -21,7 +21,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new("DEPENDENCY STATUS").style(
             Style::default()
-                .fg(colors.accent)
+                .fg(colors.active)
                 .add_modifier(Modifier::BOLD),
         ),
         title,

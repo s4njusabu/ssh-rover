@@ -28,7 +28,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new("NMAP IS USED TO DISCOVER HOSTS AND SCAN NETWORKS").style(
             Style::default()
-                .fg(colors.accent)
+                .fg(colors.active)
                 .add_modifier(Modifier::BOLD),
         ),
         title,
@@ -93,7 +93,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                         hostname.to_uppercase()
                     },
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
             ])),
@@ -135,7 +135,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 nmap_name,
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -156,7 +156,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             Span::styled(
                 command_to_install_nmap,
                 Style::default()
-                    .fg(colors.accent)
+                    .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
@@ -168,7 +168,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new("✓ NMAP ALREADY INSTALLED").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 footer,
@@ -177,7 +177,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new("").style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 footer,
@@ -205,7 +205,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             frame.render_widget(
                 Paragraph::new(footer_text).style(
                     Style::default()
-                        .fg(colors.accent)
+                        .fg(colors.active)
                         .add_modifier(Modifier::BOLD),
                 ),
                 footer,
