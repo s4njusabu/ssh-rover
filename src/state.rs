@@ -64,7 +64,7 @@ impl State {
         let openssh_installed = services::dependencies::openssh_installed();
 
         State {
-            theme: Theme::Gray,
+            theme: Theme::Default,
             in_pane1: true,
             hovered: 0,
             pane1_selected: Pane1::Discovery(pane2::discovery::ITEM_COUNT),

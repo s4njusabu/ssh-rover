@@ -85,6 +85,35 @@ fn main() -> std::io::Result<()> {
                         }
                         _ => {}
                     },
+                    KeyCode::Right => match state.hovered {
+                        0 => {
+                            state.pane1_selected = Pane1::Discovery(pane2::discovery::ITEM_COUNT);
+                            state.in_pane1 = false;
+                            state.in_pane2 = true;
+
+                            state.pane2_hovered = Some(0);
+                        }
+                        1 => {
+                            state.pane1_selected =
+                                Pane1::Dependencies(pane2::dependencies::ITEM_COUNT);
+                            state.in_pane1 = false;
+                            state.in_pane2 = true;
+                            state.pane2_hovered = Some(0);
+                        }
+                        2 => {
+                            state.pane1_selected = Pane1::Themes(pane2::themes::ITEM_COUNT);
+                            state.in_pane1 = false;
+                            state.in_pane2 = true;
+                            state.pane2_hovered = Some(0);
+                        }
+                        3 => {
+                            state.pane1_selected = Pane1::About(pane2::about::ITEM_COUNT);
+                            state.in_pane1 = false;
+                            state.in_pane2 = true;
+                            state.pane2_hovered = Some(0);
+                        }
+                        _ => {}
+                    },
                     KeyCode::Esc | KeyCode::Char('q') => break,
                     _ => {}
                 }
@@ -118,7 +147,7 @@ fn main() -> std::io::Result<()> {
                             }
                             state.pane2_selected = usize::MAX;
                         }
-                        KeyCode::Enter => {
+                        KeyCode::Enter | KeyCode::Right => {
                             state.pane2_selected = state.pane2_hovered.unwrap();
                             if state.pane2_selected == index - 1 {
                                 state.in_pane1 = true;
@@ -126,6 +155,12 @@ fn main() -> std::io::Result<()> {
                                 state.pane2_hovered = None;
                                 state.pane2_selected = usize::MAX;
                             }
+                        }
+                        KeyCode::Left => {
+                            state.in_pane1 = true;
+                            state.in_pane2 = false;
+                            state.pane2_hovered = None;
+                            state.pane2_selected = usize::MAX;
                         }
                         KeyCode::Esc | KeyCode::Char('q') if !state.in_pane3 => {
                             break;
