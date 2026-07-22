@@ -1,4 +1,4 @@
-// Creates the border and title of SSH WARDEN
+// Creates the border and title of SSH HOPPER
 
 use crate::state::State;
 use ratatui::{
@@ -21,9 +21,9 @@ pub fn draw(frame: &mut Frame, state: &State) -> Rect {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                " WARDEN ",
+                " HOPPER ",
                 Style::default()
-                    .fg(colors.warden_text)
+                    .fg(colors.hopper_text)
                     .add_modifier(Modifier::BOLD),
             ),
         ]))
