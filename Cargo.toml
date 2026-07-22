@@ -1,5 +1,5 @@
 [package]
-name = "sshbeacon"
+name = "sshwarden"
 version = "0.1.0"
 edition = "2024"
 

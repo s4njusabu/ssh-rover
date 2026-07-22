@@ -22,7 +22,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         danger,
         success,
         ssh_text,
-        beacon_text,
+        warden_text,
     ] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
@@ -216,7 +216,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "BEACON TEXT"),
+                format!("{:<15}", "WARDEN TEXT"),
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -228,6 +228,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
-        beacon_text,
+        warden_text,
     );
 }

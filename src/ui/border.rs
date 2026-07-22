@@ -1,4 +1,4 @@
-// Creates the border and title of SSH BEACON
+// Creates the border and title of SSH WARDEN
 
 use crate::state::State;
 use ratatui::{
@@ -21,9 +21,9 @@ pub fn draw(frame: &mut Frame, state: &State) -> Rect {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                " BEACON ",
+                " WARDEN ",
                 Style::default()
-                    .fg(colors.beacon_text)
+                    .fg(colors.warden_text)
                     .add_modifier(Modifier::BOLD),
             ),
         ]))
