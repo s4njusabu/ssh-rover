@@ -21,8 +21,8 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         warning,
         danger,
         success,
-        mux_text,
         ssh_text,
+        beacon_text,
     ] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
@@ -198,7 +198,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "MUX TEXT"),
+                format!("{:<15}", "SSH TEXT"),
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -210,13 +210,13 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
-        mux_text,
+        ssh_text,
     );
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "SSH TEXT"),
+                format!("{:<15}", "BEACON TEXT"),
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -228,6 +228,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
         ])),
-        ssh_text,
+        beacon_text,
     );
 }

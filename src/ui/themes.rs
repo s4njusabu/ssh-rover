@@ -10,8 +10,8 @@ pub struct ThemeColors {
     pub danger: Color,
     pub success: Color,
 
-    pub mux_text: Color,
     pub ssh_text: Color,
+    pub beacon_text: Color,
 }
 
 pub enum Theme {
@@ -37,8 +37,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::White,
-                ssh_text: Color::LightBlue,
+                ssh_text: Color::White,
+                beacon_text: Color::LightBlue,
             },
             Theme::Red => ThemeColors {
                 accent: Color::LightRed,
@@ -49,8 +49,8 @@ impl Theme {
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
-                mux_text: Color::LightRed,
                 ssh_text: Color::LightRed,
+                beacon_text: Color::LightRed,
             },
             Theme::Blue => ThemeColors {
                 accent: Color::LightBlue,
@@ -62,8 +62,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::LightBlue,
                 ssh_text: Color::LightBlue,
+                beacon_text: Color::LightBlue,
             },
 
             Theme::Green => ThemeColors {
@@ -77,8 +77,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::LightGreen,
                 ssh_text: Color::LightGreen,
+                beacon_text: Color::LightGreen,
             },
             Theme::Yellow => ThemeColors {
                 accent: Color::LightYellow,
@@ -91,8 +91,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::LightYellow,
                 ssh_text: Color::LightYellow,
+                beacon_text: Color::LightYellow,
             },
             Theme::Magenta => ThemeColors {
                 accent: Color::LightMagenta,
@@ -105,8 +105,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::LightMagenta,
                 ssh_text: Color::LightMagenta,
+                beacon_text: Color::LightMagenta,
             },
             Theme::Gray => ThemeColors {
                 accent: Color::DarkGray,
@@ -119,8 +119,8 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
 
-                mux_text: Color::DarkGray,
-                ssh_text: Color::DarkGray,
+                ssh_text: Color::Gray,
+                beacon_text: Color::Gray,
             },
         }
     }
