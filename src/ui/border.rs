@@ -1,5 +1,4 @@
-// Creates the border and title of MuxSSH
-// Added custom color
+// Creates the border and title of SSH WARDEN
 
 use crate::state::State;
 use ratatui::{
@@ -16,15 +15,15 @@ pub fn draw(frame: &mut Frame, state: &State) -> Rect {
     let block = Block::bordered()
         .title(Line::from(vec![
             Span::styled(
-                " Mux",
+                " SSH",
                 Style::default()
-                    .fg(colors.mux_text)
+                    .fg(colors.ssh_text)
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                "SSH ",
+                " WARDEN ",
                 Style::default()
-                    .fg(colors.ssh_text)
+                    .fg(colors.warden_text)
                     .add_modifier(Modifier::BOLD),
             ),
         ]))

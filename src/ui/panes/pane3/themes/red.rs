@@ -21,8 +21,8 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         warning,
         danger,
         success,
-        mux_text,
         ssh_text,
+        warden_text,
     ] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
@@ -196,24 +196,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "MUX TEXT"),
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            Span::styled(
-                "████████",
-                Style::default()
-                    .fg(Color::LightRed)
-                    .add_modifier(Modifier::BOLD),
-            ),
-        ])),
-        mux_text,
-    );
-
-    frame.render_widget(
-        Paragraph::new(Line::from(vec![
-            Span::styled(
                 format!("{:<15}", "SSH TEXT"),
                 Style::default()
                     .fg(colors.text)
@@ -227,5 +209,23 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             ),
         ])),
         ssh_text,
+    );
+
+    frame.render_widget(
+        Paragraph::new(Line::from(vec![
+            Span::styled(
+                format!("{:<15}", "WARDEN TEXT"),
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(
+                "████████",
+                Style::default()
+                    .fg(Color::LightRed)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        ])),
+        warden_text,
     );
 }

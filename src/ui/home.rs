@@ -1,5 +1,4 @@
-// Creates the home menu and banner of MuxSSH
-// Added custom color
+// Creates the home menu and banner of SSH WARDEN
 
 use crate::state::State;
 use crate::ui::panes::{pane1, pane2, pane3};
