@@ -1,4 +1,4 @@
-// Creates the home menu and banner of SSH WARDEN
+// Creates the home menu and banner of SSH HOPPER
 
 use crate::state::State;
 use crate::ui::panes::{pane1, pane2, pane3};

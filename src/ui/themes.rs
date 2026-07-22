@@ -11,7 +11,7 @@ pub struct ThemeColors {
     pub success: Color,
 
     pub ssh_text: Color,
-    pub warden_text: Color,
+    pub hopper_text: Color,
 }
 
 pub enum Theme {
@@ -38,7 +38,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::White,
-                warden_text: Color::LightBlue,
+                hopper_text: Color::LightBlue,
             },
             Theme::Red => ThemeColors {
                 accent: Color::LightRed,
@@ -50,7 +50,7 @@ impl Theme {
                 danger: Color::LightRed,
                 success: Color::LightGreen,
                 ssh_text: Color::LightRed,
-                warden_text: Color::LightRed,
+                hopper_text: Color::LightRed,
             },
             Theme::Blue => ThemeColors {
                 accent: Color::LightBlue,
@@ -63,7 +63,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::LightBlue,
-                warden_text: Color::LightBlue,
+                hopper_text: Color::LightBlue,
             },
 
             Theme::Green => ThemeColors {
@@ -78,7 +78,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::LightGreen,
-                warden_text: Color::LightGreen,
+                hopper_text: Color::LightGreen,
             },
             Theme::Yellow => ThemeColors {
                 accent: Color::LightYellow,
@@ -92,7 +92,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::LightYellow,
-                warden_text: Color::LightYellow,
+                hopper_text: Color::LightYellow,
             },
             Theme::Magenta => ThemeColors {
                 accent: Color::LightMagenta,
@@ -106,7 +106,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::LightMagenta,
-                warden_text: Color::LightMagenta,
+                hopper_text: Color::LightMagenta,
             },
             Theme::Gray => ThemeColors {
                 accent: Color::DarkGray,
@@ -120,7 +120,7 @@ impl Theme {
                 success: Color::LightGreen,
 
                 ssh_text: Color::Gray,
-                warden_text: Color::Gray,
+                hopper_text: Color::Gray,
             },
         }
     }
