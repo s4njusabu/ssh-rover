@@ -21,7 +21,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     .areas(inner);
 
     frame.render_widget(
-        Paragraph::new("INSTALLATION").style(
+        Paragraph::new("INSTALLATION METHODS").style(
             Style::default()
                 .fg(colors.active)
                 .add_modifier(Modifier::BOLD),

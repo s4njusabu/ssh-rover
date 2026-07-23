@@ -19,7 +19,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(0) {
         frame.render_widget(
-            Paragraph::new("❯ INSTALL").style(
+            Paragraph::new("❯ INSTALL OPTIONS").style(
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
@@ -28,7 +28,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  INSTALL").style(
+            Paragraph::new("  INSTALL OPTIONS").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),

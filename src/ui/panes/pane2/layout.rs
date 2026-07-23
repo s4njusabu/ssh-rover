@@ -1,6 +1,6 @@
 use crate::{
     state::State,
-    ui::panes::pane2::{about, dependencies, discovery, themes},
+    ui::panes::pane2::{dependencies, discovery, project, themes},
 };
 use ratatui::{
     Frame,
@@ -35,7 +35,7 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         0 => discovery::draw(frame, inner, state),
         1 => dependencies::draw(frame, inner, state),
         2 => themes::draw(frame, inner, state),
-        3 => about::draw(frame, inner, state),
+        3 => project::draw(frame, inner, state),
         _ => {}
     }
 }

@@ -72,7 +72,7 @@ fn main() -> std::io::Result<()> {
                             state.pane2_hovered = Some(0);
                         }
                         3 => {
-                            state.pane1_selected = Pane1::Project(pane2::about::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Project(pane2::project::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
@@ -107,7 +107,7 @@ fn main() -> std::io::Result<()> {
                             state.pane2_hovered = Some(0);
                         }
                         3 => {
-                            state.pane1_selected = Pane1::Project(pane2::about::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Project(pane2::project::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);

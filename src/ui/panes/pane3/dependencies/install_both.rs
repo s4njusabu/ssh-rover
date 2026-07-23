@@ -22,7 +22,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     // Title
     frame.render_widget(
-        Paragraph::new("INSTALL BOTH NMAP AND OPENSSH").style(
+        Paragraph::new("COMMAND TO INSTALL BOTH NMAP AND OPENSSH").style(
             Style::default()
                 .fg(colors.active)
                 .add_modifier(Modifier::BOLD),
