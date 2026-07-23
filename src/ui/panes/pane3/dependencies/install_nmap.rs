@@ -6,10 +6,7 @@ use ratatui::{
     widgets::Paragraph,
 };
 
-use crate::{
-    services,
-    state::{Pane3InstallState, State},
-};
+use crate::{services, state::State};
 
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
@@ -184,32 +181,13 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             );
         }
     } else {
-        let footer_text = match state.pane3_nmap_install_state {
-            Pane3InstallState::Ready => "PRESS ENTER TO INSTALL",
-            Pane3InstallState::Password => "❯ ENTER SUDO PASSWORD:",
-            Pane3InstallState::Installing => "INSTALLING...",
-            Pane3InstallState::Success => "✓ INSTALLED SUCCESSFULLY",
-            Pane3InstallState::Failed => "✗ INSTALLATION FAILED",
-        };
-
-        if state.pane3_nmap_install_state == Pane3InstallState::Failed {
-            frame.render_widget(
-                Paragraph::new(footer_text).style(
-                    Style::default()
-                        .fg(Color::LightRed)
-                        .add_modifier(Modifier::BOLD),
-                ),
-                footer,
-            );
-        } else {
-            frame.render_widget(
-                Paragraph::new(footer_text).style(
-                    Style::default()
-                        .fg(colors.active)
-                        .add_modifier(Modifier::BOLD),
-                ),
-                footer,
-            );
-        }
+        frame.render_widget(
+            Paragraph::new("COPY THE COMMAND ABOVE AND RUN IT IN A TERMINAL").style(
+                Style::default()
+                    .fg(colors.active)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            footer,
+        );
     }
 }

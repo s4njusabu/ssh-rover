@@ -1,7 +1,7 @@
 use ratatui::{
     Frame,
     layout::{Constraint, Layout, Rect},
-    style::{Modifier, Style},
+    style::{Color, Modifier, Style},
     text::{Line, Span},
     widgets::Paragraph,
 };
@@ -42,7 +42,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                 Span::styled(
                     "INSTALLED",
                     Style::default()
-                        .fg(ratatui::style::Color::LightGreen)
+                        .fg(Color::LightGreen)
                         .add_modifier(Modifier::BOLD),
                 ),
             ])),
@@ -60,7 +60,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                 Span::styled(
                     "NOT INSTALLED",
                     Style::default()
-                        .fg(ratatui::style::Color::LightRed)
+                        .fg(Color::LightRed)
                         .add_modifier(Modifier::BOLD),
                 ),
             ])),
@@ -80,7 +80,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                 Span::styled(
                     "INSTALLED",
                     Style::default()
-                        .fg(ratatui::style::Color::LightGreen)
+                        .fg(Color::LightGreen)
                         .add_modifier(Modifier::BOLD),
                 ),
             ])),
@@ -98,7 +98,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                 Span::styled(
                     "NOT INSTALLED",
                     Style::default()
-                        .fg(ratatui::style::Color::LightRed)
+                        .fg(Color::LightRed)
                         .add_modifier(Modifier::BOLD),
                 ),
             ])),
