@@ -45,7 +45,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(1) {
         frame.render_widget(
-            Paragraph::new("❯ INSTALL NMAP").style(
+            Paragraph::new("❯ NMAP").style(
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
@@ -54,7 +54,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  INSTALL NMAP").style(
+            Paragraph::new("  NMAP").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -65,7 +65,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(2) {
         frame.render_widget(
-            Paragraph::new("❯ INSTALL OPENSSH").style(
+            Paragraph::new("❯ OPENSSH").style(
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
@@ -74,7 +74,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  INSTALL OPENSSH").style(
+            Paragraph::new("  OPENSSH").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -85,7 +85,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if hovered == Some(3) {
         frame.render_widget(
-            Paragraph::new("❯ INSTALL BOTH").style(
+            Paragraph::new("❯ NMAP + OPENSSH").style(
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
@@ -94,7 +94,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  INSTALL BOTH").style(
+            Paragraph::new("  NMAP + OPENSSH").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),

@@ -9,24 +9,8 @@ pub enum Pane1 {
     Discovery(usize),
     Dependencies(usize),
     Themes(usize),
-    About(usize),
+    Project(usize),
     Exit,
-}
-
-pub enum InstallTarget {
-    None,
-    Nmap,
-    Openssh,
-    Both,
-}
-
-#[derive(PartialEq)]
-pub enum Pane3InstallState {
-    Ready,
-    Password,
-    Installing,
-    Success,
-    Failed,
 }
 
 pub struct State {
@@ -50,12 +34,6 @@ pub struct State {
     // Dependencies
     pub nmap_installed: bool,
     pub openssh_installed: bool,
-
-    pub pane3_nmap_install_state: Pane3InstallState,
-    pub pane3_openssh_install_state: Pane3InstallState,
-    pub pane3_both_install_state: Pane3InstallState,
-    pub install_target: InstallTarget,
-    pub pane3_install_password_input: String,
 }
 
 impl State {
@@ -79,12 +57,6 @@ impl State {
 
             nmap_installed,
             openssh_installed,
-
-            pane3_nmap_install_state: Pane3InstallState::Ready,
-            pane3_openssh_install_state: Pane3InstallState::Ready,
-            pane3_both_install_state: Pane3InstallState::Ready,
-            install_target: InstallTarget::None,
-            pane3_install_password_input: String::new(),
         }
     }
 
