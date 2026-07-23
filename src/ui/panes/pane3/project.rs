@@ -11,9 +11,7 @@ use crate::state::State;
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [title, github, cargo, aur, snap] = Layout::vertical([
-        Constraint::Length(2),
-        Constraint::Length(2),
+    let [title, github, cargo] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -63,41 +61,5 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             ),
         ])),
         cargo,
-    );
-
-    frame.render_widget(
-        Paragraph::new(Line::from(vec![
-            Span::styled(
-                format!("{:<10}", "AUR"),
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            Span::styled(
-                "paru -S --needed sshhopper",
-                Style::default()
-                    .fg(colors.active)
-                    .add_modifier(Modifier::BOLD),
-            ),
-        ])),
-        aur,
-    );
-
-    frame.render_widget(
-        Paragraph::new(Line::from(vec![
-            Span::styled(
-                format!("{:<10}", "SNAP"),
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            Span::styled(
-                "sudo snap install sshhopper",
-                Style::default()
-                    .fg(colors.active)
-                    .add_modifier(Modifier::BOLD),
-            ),
-        ])),
-        snap,
     );
 }
