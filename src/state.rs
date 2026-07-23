@@ -9,7 +9,7 @@ pub enum Pane1 {
     Discovery(usize),
     Dependencies(usize),
     Themes(usize),
-    About(usize),
+    Project(usize),
     Exit,
 }
 

@@ -1,6 +1,6 @@
 use crate::{
     state::{Pane1, State},
-    ui::panes::pane3::{dependencies, themes},
+    ui::panes::pane3::{about, dependencies, themes},
 };
 use ratatui::{
     Frame,
@@ -50,7 +50,10 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
             Some(6) => themes::gray::draw(frame, inner, state),
             _ => {}
         },
-        Pane1::About(_) => {}
+        Pane1::Project(_) => match state.pane2_hovered {
+            Some(0) => about::draw(frame, inner, state),
+            _ => {}
+        },
         Pane1::Exit => {}
     }
 }

@@ -29,7 +29,7 @@ fn main() -> std::io::Result<()> {
                 Pane1::Discovery(_) => home::draw(frame, inner, &state),
                 Pane1::Dependencies(_) => home::draw(frame, inner, &state),
                 Pane1::Themes(_) => home::draw(frame, inner, &state),
-                Pane1::About(_) => home::draw(frame, inner, &state),
+                Pane1::Project(_) => home::draw(frame, inner, &state),
                 _ => {}
             }
         })?;
@@ -72,7 +72,7 @@ fn main() -> std::io::Result<()> {
                             state.pane2_hovered = Some(0);
                         }
                         3 => {
-                            state.pane1_selected = Pane1::About(pane2::about::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Project(pane2::about::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
@@ -107,7 +107,7 @@ fn main() -> std::io::Result<()> {
                             state.pane2_hovered = Some(0);
                         }
                         3 => {
-                            state.pane1_selected = Pane1::About(pane2::about::ITEM_COUNT);
+                            state.pane1_selected = Pane1::Project(pane2::about::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
                             state.pane2_hovered = Some(0);
@@ -129,7 +129,7 @@ fn main() -> std::io::Result<()> {
                     Pane1::Discovery(index)
                     | Pane1::Dependencies(index)
                     | Pane1::Themes(index)
-                    | Pane1::About(index) => match key_event.code {
+                    | Pane1::Project(index) => match key_event.code {
                         KeyCode::Up => {
                             let t1 = state.pane2_hovered.unwrap();
                             if t1 > 0 {
@@ -190,7 +190,7 @@ fn main() -> std::io::Result<()> {
                             6 => state.theme = Theme::Gray,
                             _ => {}
                         },
-                        Pane1::About(_) => {}
+                        Pane1::Project(_) => {}
                         Pane1::Exit => {}
                     }
                 }

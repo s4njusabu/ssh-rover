@@ -10,7 +10,7 @@ use ratatui::{
 pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     let colors = state.theme.colors();
 
-    let [discovery, dependencies, themes, about, exit] = Layout::vertical([
+    let [discovery, dependencies, themes, project, exit] = Layout::vertical([
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -81,21 +81,21 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     if state.hovered == 3 {
         frame.render_widget(
-            Paragraph::new("❯ ABOUT").style(
+            Paragraph::new("❯ PROJECT").style(
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
             ),
-            about,
+            project,
         );
     } else {
         frame.render_widget(
-            Paragraph::new("  ABOUT").style(
+            Paragraph::new("  PROJECT").style(
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
             ),
-            about,
+            project,
         );
     }
 
