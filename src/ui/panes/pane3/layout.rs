@@ -50,10 +50,11 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
             Some(6) => themes::gray::draw(frame, inner, state),
             _ => {}
         },
-        Pane1::Project(_) => match state.pane2_hovered {
-            Some(0) => project::draw(frame, inner, state),
-            _ => {}
-        },
+        Pane1::Project(_) => {
+            if let Some(0) = state.pane2_hovered {
+                project::draw(frame, inner, state)
+            }
+        }
         Pane1::Exit => {}
     }
 }

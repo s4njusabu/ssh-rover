@@ -173,13 +173,8 @@ fn main() -> std::io::Result<()> {
 
                 if state.in_pane2 {
                     match state.pane1_selected {
+                        Pane1::Dependencies(_) | Pane1::Project(_) | Pane1::Exit => {}
                         Pane1::Discovery(_) => {}
-                        Pane1::Dependencies(_) => match state.pane2_selected {
-                            1 => state.pane3_selected = 1,
-                            2 => state.pane3_selected = 2,
-                            3 => state.pane3_selected = 3,
-                            _ => {}
-                        },
                         Pane1::Themes(_) => match state.pane2_selected {
                             0 => state.theme = Theme::Default,
                             1 => state.theme = Theme::Red,
@@ -190,8 +185,6 @@ fn main() -> std::io::Result<()> {
                             6 => state.theme = Theme::Gray,
                             _ => {}
                         },
-                        Pane1::Project(_) => {}
-                        Pane1::Exit => {}
                     }
                 }
             }
