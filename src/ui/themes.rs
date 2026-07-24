@@ -12,6 +12,8 @@ pub struct ThemeColors {
 
     pub ssh_text: Color,
     pub rover_text: Color,
+
+    pub activity_pane: Color,
 }
 
 pub enum Theme {
@@ -31,6 +33,7 @@ impl Theme {
                 accent: Color::LightBlue,
                 background: Color::Black,
                 banner: Color::White,
+
                 text: Color::White,
                 active: Color::LightBlue,
                 warning: Color::LightYellow,
@@ -39,23 +42,28 @@ impl Theme {
 
                 ssh_text: Color::White,
                 rover_text: Color::LightBlue,
+                activity_pane: Color::White,
             },
             Theme::Red => ThemeColors {
                 accent: Color::LightRed,
                 background: Color::Black,
                 banner: Color::LightRed,
+
                 text: Color::Red,
                 active: Color::LightRed,
                 warning: Color::LightYellow,
                 danger: Color::LightRed,
                 success: Color::LightGreen,
+
                 ssh_text: Color::LightRed,
                 rover_text: Color::LightRed,
+                activity_pane: Color::LightRed,
             },
             Theme::Blue => ThemeColors {
                 accent: Color::LightBlue,
                 background: Color::Black,
                 banner: Color::LightBlue,
+
                 text: Color::Blue,
                 active: Color::LightBlue,
                 warning: Color::LightYellow,
@@ -64,6 +72,7 @@ impl Theme {
 
                 ssh_text: Color::LightBlue,
                 rover_text: Color::LightBlue,
+                activity_pane: Color::LightBlue,
             },
 
             Theme::Green => ThemeColors {
@@ -79,6 +88,7 @@ impl Theme {
 
                 ssh_text: Color::LightGreen,
                 rover_text: Color::LightGreen,
+                activity_pane: Color::LightGreen,
             },
             Theme::Yellow => ThemeColors {
                 accent: Color::LightYellow,
@@ -93,6 +103,7 @@ impl Theme {
 
                 ssh_text: Color::LightYellow,
                 rover_text: Color::LightYellow,
+                activity_pane: Color::LightYellow,
             },
             Theme::Magenta => ThemeColors {
                 accent: Color::LightMagenta,
@@ -107,6 +118,7 @@ impl Theme {
 
                 ssh_text: Color::LightMagenta,
                 rover_text: Color::LightMagenta,
+                activity_pane: Color::LightMagenta,
             },
             Theme::Gray => ThemeColors {
                 accent: Color::DarkGray,
@@ -121,6 +133,7 @@ impl Theme {
 
                 ssh_text: Color::Gray,
                 rover_text: Color::Gray,
+                activity_pane: Color::Gray,
             },
         }
     }

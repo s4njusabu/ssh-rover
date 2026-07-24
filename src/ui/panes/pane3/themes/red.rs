@@ -23,7 +23,9 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
         success,
         ssh_text,
         rover_text,
+        activity_pane,
     ] = Layout::vertical([
+        Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
         Constraint::Length(2),
@@ -196,7 +198,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "SSH TEXT"),
+                format!("{:<15}", "SSH"),
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -214,7 +216,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "ROVER TEXT"),
+                format!("{:<15}", "ROVER"),
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),
@@ -227,5 +229,23 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             ),
         ])),
         rover_text,
+    );
+
+    frame.render_widget(
+        Paragraph::new(Line::from(vec![
+            Span::styled(
+                format!("{:<15}", "4TH PANE"),
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(
+                "████████",
+                Style::default()
+                    .fg(Color::LightRed)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        ])),
+        activity_pane,
     );
 }
