@@ -1,5 +1,7 @@
 use std::process::Command;
 
+use ipnet::Ipv4Net;
+
 pub fn get_interface() -> Option<String> {
     let output: Option<String> = match Command::new("ip")
         .args(["route", "get", "8.8.8.8"])
@@ -36,7 +38,11 @@ pub fn get_interface_cidr(interface: &str) -> Option<String> {
 
         while let Some(c2) = words.next() {
             if c2 == "inet" {
-                return words.next().map(|c3| c3.to_string());
+                let network_addr = words.next()?;
+
+                let net: Ipv4Net = network_addr.parse().ok()?;
+
+                return Some(net.trunc().to_string());
             }
         }
     }
