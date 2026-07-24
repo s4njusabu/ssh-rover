@@ -192,6 +192,6 @@ fn main() -> std::io::Result<()> {
     }
 
     ratatui::restore();
-    println!("Bye from SSH HOPPER!");
+    println!("Bye from SSH Rover!");
     Ok(())
 }

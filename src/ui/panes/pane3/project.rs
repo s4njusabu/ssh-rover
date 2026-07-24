@@ -36,7 +36,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                "https://github.com/s4njusabu/sshhopper",
+                "https://github.com/s4njusabu/sshrover",
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
@@ -54,7 +54,7 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
                     .add_modifier(Modifier::BOLD),
             ),
             Span::styled(
-                "cargo install sshhopper",
+                "cargo install sshrover",
                 Style::default()
                     .fg(colors.active)
                     .add_modifier(Modifier::BOLD),
