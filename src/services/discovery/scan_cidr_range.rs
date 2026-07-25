@@ -22,8 +22,7 @@ pub fn scan_cidr_range(cidr: &str) -> Vec<String> {
     }
 }
 
-// This is the flow of these functions
-fn auto() -> Vec<String> {
+pub fn auto() -> Vec<String> {
     if let Some(interface) = super::network::get_interface()
         && let Some(cidr) = super::network::get_interface_cidr(&interface)
     {

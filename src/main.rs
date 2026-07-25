@@ -9,6 +9,7 @@ use state::State;
 use ui::{border, home};
 
 use crate::{
+    services::discovery::scan_cidr_range,
     state::Pane1,
     ui::{panes::pane2, themes::Theme},
 };
@@ -57,6 +58,8 @@ fn main() -> std::io::Result<()> {
                             state.in_pane2 = true;
 
                             state.pane2_hovered = Some(0);
+
+                            state.scanned_ips = scan_cidr_range::auto();
                         }
                         1 => {
                             state.pane1_selected =
