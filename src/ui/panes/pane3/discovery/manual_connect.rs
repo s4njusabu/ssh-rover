@@ -1,5 +1,7 @@
 #![allow(unused)]
 
+use std::{sync::mpsc, thread};
+
 use ratatui::{
     Frame,
     layout::{Constraint, Layout, Margin, Rect},
@@ -9,10 +11,12 @@ use ratatui::{
 };
 
 use crate::{
-    services::discovery::{network, scan_cidr_range},
+    services::{
+        self,
+        discovery::{network, scan_cidr_range},
+    },
     state::State,
 };
-
 pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
 
@@ -28,19 +32,16 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     ])
     .areas(area);
 
-    let interface_name = if let Some(s1) = network::get_interface() {
-        s1
-    } else {
-        "UNKNOWN".to_string()
-    };
+    let interface_name = network::get_interface().unwrap_or_else(|| "UNKNOWN".to_string());
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
                 format!("{:<15}", "INTERFACE"),
-                Style::default().fg(colors.text),
-            )
-            .add_modifier(Modifier::BOLD),
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
             Span::styled(
                 &interface_name,
                 Style::default()
@@ -51,11 +52,8 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         interface,
     );
 
-    let network_range = if let Some(s2) = network::get_interface_cidr(&interface_name) {
-        s2
-    } else {
-        "UNKNOWN".to_string()
-    };
+    let network_range =
+        network::get_interface_cidr(&interface_name).unwrap_or_else(|| "UNKNOWN".to_string());
 
     frame.render_widget(
         Paragraph::new(Line::from(vec![
@@ -74,4 +72,13 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         ])),
         network,
     );
+
+    let arr = &state.scanned_ips;
+    let widget = Paragraph::new(
+        arr.iter()
+            .map(|ip| Line::from(ip.as_str()))
+            .collect::<Vec<_>>(),
+    );
+
+    frame.render_widget(widget, output);
 }
