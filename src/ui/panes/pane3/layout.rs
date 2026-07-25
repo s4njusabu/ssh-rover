@@ -34,8 +34,6 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     match state.pane1_selected {
         Pane1::Discovery(_) => match state.pane2_hovered {
             Some(0) => discovery::manual_connect::draw(frame, inner, state),
-            Some(1) => discovery::manual_connect::draw(frame, inner, state),
-            Some(2) => discovery::manual_connect::draw(frame, inner, state),
             _ => {}
         },
         Pane1::Dependencies(_) => match state.pane2_hovered {

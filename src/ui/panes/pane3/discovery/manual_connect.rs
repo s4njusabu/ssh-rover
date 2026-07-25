@@ -8,7 +8,10 @@ use ratatui::{
     widgets::{Block, BorderType, Paragraph},
 };
 
-use crate::{services::discovery::network, state::State};
+use crate::{
+    services::discovery::{network, scan_cidr_range},
+    state::State,
+};
 
 pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
@@ -71,10 +74,4 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         ])),
         network,
     );
-
-    let pane = Block::bordered()
-        .border_type(BorderType::Thick)
-        .border_style(Style::default().fg(colors.activity_pane));
-
-    frame.render_widget(pane, output);
 }
