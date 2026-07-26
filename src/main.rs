@@ -10,7 +10,11 @@ use ui::{border, home};
 
 use crate::{
     state::Pane1,
-    ui::{panes::pane2, themes::Theme},
+    ui::{
+        home_for_discovery::{self, draw_pane_3},
+        panes::{pane2, pane3::discovery},
+        themes::Theme,
+    },
 };
 
 fn main() -> std::io::Result<()> {
@@ -26,7 +30,32 @@ fn main() -> std::io::Result<()> {
             let inner = border::draw(frame, &state);
 
             match state.pane1_selected {
-                Pane1::Discovery(_) => home::draw(frame, inner, &state),
+                Pane1::Discovery(_) => {
+                    let output_area = home_for_discovery::draw(frame, inner, &state);
+
+                    let rect_of_draw_pane_3 = draw_pane_3(frame, output_area, &state);
+
+                    match state.pane2_hovered {
+                        Some(0) => {
+                            discovery::scan_current_network::draw(
+                                frame,
+                                rect_of_draw_pane_3,
+                                &state,
+                            );
+                        }
+
+                        Some(1) => {
+                            discovery::scan_cidr_range::draw(frame, rect_of_draw_pane_3, &state);
+                        }
+
+                        Some(2) => {
+                            discovery::manual_connect::draw(frame, rect_of_draw_pane_3, &state);
+                        }
+
+                        _ => {}
+                    }
+                }
+
                 Pane1::Dependencies(_) => home::draw(frame, inner, &state),
                 Pane1::Themes(_) => home::draw(frame, inner, &state),
                 Pane1::Project(_) => home::draw(frame, inner, &state),
@@ -34,7 +63,6 @@ fn main() -> std::io::Result<()> {
             }
         })?;
 
-        state.pane3_selected = usize::MAX;
         if state.in_pane1 {
             // In pane 1
             if let Event::Key(key_event) = event::read()? {
@@ -122,18 +150,238 @@ fn main() -> std::io::Result<()> {
                     break;
                 }
             }
+        } else if state.in_pane3 {
+            if let Event::Key(key_event) = event::read()? {
+                if state.pane2_selected == 0 {
+                    if state.entering_username {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.username.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.username.pop();
+                            }
+                            KeyCode::Enter => {
+                                ratatui::restore();
+
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
+                                    state.username, state.scanned_ips[state.selected_ip]
+                                );
+                                println!("Enter the password of {}", state.username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!(
+                                        "{}@{}",
+                                        state.username, state.scanned_ips[state.selected_ip]
+                                    ))
+                                    .status()
+                                    .unwrap();
+
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            }
+                            KeyCode::Esc => {
+                                state.entering_username = false;
+                                state.username.clear();
+                            }
+                            _ => {}
+                        }
+                    } else {
+                        match key_event.code {
+                            KeyCode::Up => {
+                                if state.selected_ip > 0 {
+                                    state.selected_ip -= 1;
+                                }
+                            }
+                            KeyCode::Down => {
+                                if state.selected_ip < state.scanned_ips.len() - 1 {
+                                    state.selected_ip += 1;
+                                }
+                            }
+                            KeyCode::Enter => {
+                                state.entering_username = true;
+                            }
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    }
+                } else if state.pane2_selected == 1 {
+                    if state.entering_cidr {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.cidr_range.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.cidr_range.pop();
+                            }
+                            KeyCode::Enter => {
+                                state.scanned_ips =
+                                    crate::services::discovery::scan_cidr_range::scan_cidr_range(
+                                        &state.cidr_range,
+                                    );
+                                state.entering_cidr = false;
+                                state.selected_ip = 0;
+                            }
+                            KeyCode::Esc => {
+                                state.cidr_range.clear();
+                                state.entering_cidr = false;
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    } else if state.entering_username {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.username.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.username.pop();
+                            }
+                            KeyCode::Enter => {
+                                ratatui::restore();
+
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
+                                    state.username, state.scanned_ips[state.selected_ip]
+                                );
+                                println!("Enter the password of {}", state.username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!(
+                                        "{}@{}",
+                                        state.username, state.scanned_ips[state.selected_ip]
+                                    ))
+                                    .status()
+                                    .unwrap();
+
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            }
+                            KeyCode::Esc => {
+                                state.entering_username = false;
+                                state.username.clear();
+                            }
+                            _ => {}
+                        }
+                    } else if state.scanned_ips.is_empty() {
+                        match key_event.code {
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.cidr_range.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    } else {
+                        match key_event.code {
+                            KeyCode::Up => {
+                                if state.selected_ip > 0 {
+                                    state.selected_ip -= 1;
+                                }
+                            }
+                            KeyCode::Down => {
+                                if state.selected_ip < state.scanned_ips.len() - 1 {
+                                    state.selected_ip += 1;
+                                }
+                            }
+                            KeyCode::Enter => {
+                                state.entering_username = true;
+                            }
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.cidr_range.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    }
+                } else if state.pane2_selected == 2 {
+                    match key_event.code {
+                        KeyCode::Char(c) => {
+                            if state.entering_manual_username {
+                                state.manual_username.push(c);
+                            } else {
+                                state.manual_ip.push(c);
+                            }
+                        }
+
+                        KeyCode::Backspace => {
+                            if state.entering_manual_username {
+                                state.manual_username.pop();
+                            } else {
+                                state.manual_ip.pop();
+                            }
+                        }
+                        KeyCode::Enter => {
+                            if state.entering_manual_username {
+                                ratatui::restore();
+
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
+                                    state.manual_username, state.manual_ip
+                                );
+                                println!("Enter the password of {}", state.manual_username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!("{}@{}", state.manual_username, state.manual_ip))
+                                    .status()
+                                    .unwrap();
+
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            } else {
+                                state.entering_manual_username = true;
+                            }
+                        }
+
+                        KeyCode::Esc | KeyCode::Left => {
+                            state.manual_ip.clear();
+                            state.manual_username.clear();
+                            state.entering_manual_username = false;
+
+                            state.in_pane3 = false;
+                            state.in_pane2 = true;
+                        }
+
+                        _ => {}
+                    }
+                }
+            }
         } else {
             // In pane 2
             if let Event::Key(key_event) = event::read()? {
                 match state.pane1_selected {
-                    Pane1::Discovery(index)
-                    | Pane1::Dependencies(index)
-                    | Pane1::Themes(index)
-                    | Pane1::Project(index) => match key_event.code {
+                    Pane1::Discovery(index) => match key_event.code {
                         KeyCode::Up => {
                             let t1 = state.pane2_hovered.unwrap();
                             if t1 > 0 {
                                 state.pane2_hovered = Some(t1 - 1);
+                                state.scanned_ips.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.entering_username = false;
+
+                                state.cidr_range.clear();
+                                state.entering_cidr = true;
+
+                                state.manual_ip.clear();
+                                state.manual_username.clear();
+                                state.entering_manual_username = false;
                             }
 
                             state.pane2_selected = usize::MAX;
@@ -144,19 +392,64 @@ fn main() -> std::io::Result<()> {
                             if t1 < index - 1 {
                                 let t2 = t1 + 1;
                                 state.pane2_hovered = Some(t2);
+
+                                state.scanned_ips.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.entering_username = false;
+
+                                state.cidr_range.clear();
+                                state.entering_cidr = true;
+
+                                state.manual_ip.clear();
+                                state.manual_username.clear();
+                                state.entering_manual_username = false;
                             }
                             state.pane2_selected = usize::MAX;
                         }
                         KeyCode::Enter | KeyCode::Right => {
                             state.pane2_selected = state.pane2_hovered.unwrap();
+                            state.pane3_selected = state.pane2_selected;
+
+                            match state.pane2_selected {
+                                0 => {
+                                    state.scanned_ips =
+            crate::services::discovery::scan_current_network::scan_current_network();
+
+                                    if !state.scanned_ips.is_empty() {
+                                        state.selected_ip = 0;
+                                        state.in_pane2 = false;
+                                        state.in_pane3 = true;
+                                    }
+                                }
+
+                                1 => {
+                                    state.cidr_range.clear();
+                                    state.scanned_ips.clear();
+                                    state.entering_cidr = true;
+
+                                    state.in_pane2 = false;
+                                    state.in_pane3 = true;
+                                }
+
+                                2 => {
+                                    state.manual_ip.clear();
+                                    state.manual_username.clear();
+                                    state.entering_manual_username = false;
+
+                                    state.in_pane2 = false;
+                                    state.in_pane3 = true;
+                                }
+
+                                _ => {}
+                            }
+
                             if state.pane2_selected == index - 1 {
                                 state.in_pane1 = true;
                                 state.in_pane2 = false;
                                 state.pane2_hovered = None;
                                 state.pane2_selected = usize::MAX;
                             }
-
-                            state.pane3_selected = state.pane2_selected;
                         }
                         KeyCode::Left => {
                             state.in_pane1 = true;
@@ -169,6 +462,48 @@ fn main() -> std::io::Result<()> {
                         }
                         _ => {}
                     },
+                    Pane1::Dependencies(index) | Pane1::Themes(index) | Pane1::Project(index) => {
+                        match key_event.code {
+                            KeyCode::Up => {
+                                let t1 = state.pane2_hovered.unwrap();
+                                if t1 > 0 {
+                                    state.pane2_hovered = Some(t1 - 1);
+                                }
+
+                                state.pane2_selected = usize::MAX;
+                            }
+                            KeyCode::Down => {
+                                let t1 = state.pane2_hovered.unwrap();
+
+                                if t1 < index - 1 {
+                                    let t2 = t1 + 1;
+                                    state.pane2_hovered = Some(t2);
+                                }
+                                state.pane2_selected = usize::MAX;
+                            }
+                            KeyCode::Enter | KeyCode::Right => {
+                                state.pane2_selected = state.pane2_hovered.unwrap();
+                                if state.pane2_selected == index - 1 {
+                                    state.in_pane1 = true;
+                                    state.in_pane2 = false;
+                                    state.pane2_hovered = None;
+                                    state.pane2_selected = usize::MAX;
+                                }
+
+                                state.pane3_selected = state.pane2_selected;
+                            }
+                            KeyCode::Left => {
+                                state.in_pane1 = true;
+                                state.in_pane2 = false;
+                                state.pane2_hovered = None;
+                                state.pane2_selected = usize::MAX;
+                            }
+                            KeyCode::Esc | KeyCode::Char('q') if !state.in_pane3 => {
+                                break;
+                            }
+                            _ => {}
+                        }
+                    }
 
                     _ => {}
                 }

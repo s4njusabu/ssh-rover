@@ -28,12 +28,24 @@ pub struct State {
 
     // Pane 3
     pub in_pane3: bool,
-    pub pane3_hovered: Option<usize>,
     pub pane3_selected: usize,
 
     // Dependencies
     pub nmap_installed: bool,
     pub openssh_installed: bool,
+
+    pub scanned_ips: Vec<String>,
+    pub selected_ip: usize,
+
+    pub entering_username: bool,
+    pub username: String,
+
+    pub manual_ip: String,
+    pub manual_username: String,
+    pub entering_manual_username: bool,
+
+    pub entering_cidr: bool,
+    pub cidr_range: String,
 }
 
 impl State {
@@ -52,11 +64,22 @@ impl State {
             pane2_selected: 0,
 
             in_pane3: false,
-            pane3_hovered: None,
             pane3_selected: usize::MAX,
 
             nmap_installed,
             openssh_installed,
+            scanned_ips: Vec::new(),
+            selected_ip: 0,
+
+            entering_username: false,
+            username: String::new(),
+
+            manual_ip: String::new(),
+            manual_username: String::new(),
+            entering_manual_username: false,
+
+            entering_cidr: false,
+            cidr_range: String::new(),
         }
     }
 

@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 use crate::services::discovery::network;
 
 pub fn scan_current_network() -> Vec<String> {

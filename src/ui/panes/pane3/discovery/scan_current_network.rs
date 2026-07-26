@@ -1,22 +1,12 @@
-#![allow(unused)]
-
-use std::{sync::mpsc, thread};
-
 use ratatui::{
     Frame,
     layout::{Constraint, Layout, Margin, Rect},
-    style::{Color, Modifier, Style, Stylize},
+    style::{Modifier, Style},
     text::{Line, Span},
-    widgets::{Block, BorderType, Paragraph},
+    widgets::Paragraph,
 };
 
-use crate::{
-    services::{
-        self,
-        discovery::{network, scan_cidr_range},
-    },
-    state::State,
-};
+use crate::{services::discovery::network, state::State, ui::panes::pane3::discovery::prompt};
 pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
 
@@ -73,30 +63,45 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         network,
     );
 
-    if state.pane3_selected == 0 {
-        let arr = network::scan_cidr_range(&network_range);
-        let widget = Paragraph::new(
-            arr.iter()
-                .map(|ip| {
-                    Line::styled(
-                        ip,
-                        Style::default()
-                            .fg(colors.active)
-                            .add_modifier(Modifier::BOLD),
-                    )
-                })
-                .collect::<Vec<_>>(),
-        );
+    if state.pane2_hovered == Some(0) {
+        if state.scanned_ips.is_empty() {
+            frame.render_widget(
+                Paragraph::new("PRESS ENTER TO SCAN\n\nTHE SYSTEM MAY LAG DURING THE SCAN").style(
+                    Style::default()
+                        .fg(colors.active)
+                        .add_modifier(Modifier::BOLD),
+                ),
+                output,
+            );
+        } else if state.entering_username {
+            prompt::username_prompt(frame, output, state);
+        } else {
+            let widget = Paragraph::new(
+                state
+                    .scanned_ips
+                    .iter()
+                    .enumerate()
+                    .map(|(i, ip)| {
+                        if i == state.selected_ip {
+                            Line::from(Span::styled(
+                                format!("> {}", ip),
+                                Style::default()
+                                    .fg(colors.text)
+                                    .add_modifier(Modifier::BOLD),
+                            ))
+                        } else {
+                            Line::from(Span::styled(
+                                format!("  {}", ip),
+                                Style::default()
+                                    .fg(colors.active)
+                                    .add_modifier(Modifier::BOLD),
+                            ))
+                        }
+                    })
+                    .collect::<Vec<_>>(),
+            );
 
-        frame.render_widget(widget, output);
-    } else {
-        frame.render_widget(
-            Paragraph::new("PRESS ENTER TO SCAN\n\nTHE SYSTEM MAY LAG DURING THE SCAN").style(
-                Style::default()
-                    .fg(colors.active)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            output,
-        );
+            frame.render_widget(widget, output);
+        }
     }
 }
