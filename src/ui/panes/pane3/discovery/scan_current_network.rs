@@ -1,23 +1,12 @@
-#![allow(unused)]
-
-use std::{sync::mpsc, thread};
-
 use ratatui::{
     Frame,
     layout::{Constraint, Layout, Margin, Rect},
-    style::{Color, Modifier, Style, Stylize},
+    style::{Modifier, Style},
     text::{Line, Span},
-    widgets::{Block, BorderType, Paragraph},
+    widgets::Paragraph,
 };
 
-use crate::{
-    services::{
-        self,
-        discovery::{network, scan_cidr_range},
-    },
-    state::State,
-    ui::panes::pane3::discovery::prompt,
-};
+use crate::{services::discovery::network, state::State, ui::panes::pane3::discovery::prompt};
 pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
 

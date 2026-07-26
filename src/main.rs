@@ -152,57 +152,119 @@ fn main() -> std::io::Result<()> {
             }
         } else if state.in_pane3 {
             if let Event::Key(key_event) = event::read()? {
-                match key_event.code {
-                    KeyCode::Up if !state.entering_username => {
-                        if state.selected_ip > 0 {
-                            state.selected_ip -= 1;
-                        }
-                    }
+                if state.pane2_selected == 0 {
+                    if state.entering_username {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.username.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.username.pop();
+                            }
+                            KeyCode::Enter => {
+                                ratatui::restore();
 
-                    KeyCode::Down if !state.entering_username => {
-                        if state.selected_ip + 1 < state.scanned_ips.len() {
-                            state.selected_ip += 1;
-                        }
-                    }
-
-                    KeyCode::Enter => {
-                        if state.entering_username {
-                            ratatui::restore();
-
-                            std::process::Command::new("ssh")
-                                .arg(format!(
-                                    "{}@{}",
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
                                     state.username, state.scanned_ips[state.selected_ip]
-                                ))
-                                .status()
-                                .unwrap();
+                                );
+                                println!("Enter the password of {}", state.username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!(
+                                        "{}@{}",
+                                        state.username, state.scanned_ips[state.selected_ip]
+                                    ))
+                                    .status()
+                                    .unwrap();
 
-                            break;
-                        } else {
-                            state.username.clear();
-                            state.entering_username = true;
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            }
+                            KeyCode::Esc => {
+                                state.entering_username = false;
+                                state.username.clear();
+                            }
+                            _ => {}
+                        }
+                    } else {
+                        match key_event.code {
+                            KeyCode::Up => {
+                                if state.selected_ip > 0 {
+                                    state.selected_ip -= 1;
+                                }
+                            }
+                            KeyCode::Down => {
+                                if state.selected_ip < state.scanned_ips.len() - 1 {
+                                    state.selected_ip += 1;
+                                }
+                            }
+                            KeyCode::Enter => {
+                                state.entering_username = true;
+                            }
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
                         }
                     }
-                    KeyCode::Char(c) if state.entering_username => {
-                        state.username.push(c);
+                } else if state.pane2_selected == 2 {
+                    match key_event.code {
+                        KeyCode::Char(c) => {
+                            if state.entering_manual_username {
+                                state.manual_username.push(c);
+                            } else {
+                                state.manual_ip.push(c);
+                            }
+                        }
+
+                        KeyCode::Backspace => {
+                            if state.entering_manual_username {
+                                state.manual_username.pop();
+                            } else {
+                                state.manual_ip.pop();
+                            }
+                        }
+                        KeyCode::Enter => {
+                            if state.entering_manual_username {
+                                ratatui::restore();
+
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
+                                    state.manual_username, state.manual_ip
+                                );
+                                println!("Enter the password of {}", state.manual_username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!("{}@{}", state.manual_username, state.manual_ip))
+                                    .status()
+                                    .unwrap();
+
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            } else {
+                                state.entering_manual_username = true;
+                            }
+                        }
+
+                        KeyCode::Esc | KeyCode::Left => {
+                            state.manual_ip.clear();
+                            state.manual_username.clear();
+                            state.entering_manual_username = false;
+
+                            state.in_pane3 = false;
+                            state.in_pane2 = true;
+                        }
+
+                        _ => {}
                     }
-
-                    KeyCode::Backspace if state.entering_username => {
-                        state.username.pop();
-                    }
-
-                    KeyCode::Left | KeyCode::Esc => {
-                        state.in_pane3 = false;
-                        state.in_pane2 = true;
-
-                        state.entering_username = false;
-                        state.username.clear();
-
-                        state.scanned_ips.clear();
-                        state.selected_ip = 0;
-                    }
-
-                    _ => {}
                 }
             }
         } else {
@@ -241,6 +303,15 @@ fn main() -> std::io::Result<()> {
                                         state.in_pane2 = false;
                                         state.in_pane3 = true;
                                     }
+                                }
+
+                                2 => {
+                                    state.manual_ip.clear();
+                                    state.manual_username.clear();
+                                    state.entering_manual_username = false;
+
+                                    state.in_pane2 = false;
+                                    state.in_pane3 = true;
                                 }
 
                                 _ => {}

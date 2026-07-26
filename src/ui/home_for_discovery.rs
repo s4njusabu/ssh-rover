@@ -105,10 +105,8 @@ pub fn draw_pane_3(frame: &mut Frame, area: Rect, state: &State) -> Rect {
 
     frame.render_widget(pane.clone(), area);
 
-    let inner = pane.inner(area).inner(Margin {
+    pane.inner(area).inner(Margin {
         horizontal: 2,
         vertical: 1,
-    });
-
-    inner
+    })
 }

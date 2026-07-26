@@ -28,7 +28,6 @@ pub struct State {
 
     // Pane 3
     pub in_pane3: bool,
-    pub pane3_hovered: Option<usize>,
     pub pane3_selected: usize,
 
     // Dependencies
@@ -40,6 +39,10 @@ pub struct State {
 
     pub entering_username: bool,
     pub username: String,
+
+    pub manual_ip: String,
+    pub manual_username: String,
+    pub entering_manual_username: bool,
 }
 
 impl State {
@@ -58,7 +61,6 @@ impl State {
             pane2_selected: 0,
 
             in_pane3: false,
-            pane3_hovered: None,
             pane3_selected: usize::MAX,
 
             nmap_installed,
@@ -68,6 +70,10 @@ impl State {
 
             entering_username: false,
             username: String::new(),
+
+            manual_ip: String::new(),
+            manual_username: String::new(),
+            entering_manual_username: false,
         }
     }
 

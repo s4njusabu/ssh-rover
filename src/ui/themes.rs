@@ -6,14 +6,9 @@ pub struct ThemeColors {
     pub banner: Color,
     pub text: Color,
     pub active: Color,
-    pub warning: Color,
-    pub danger: Color,
-    pub success: Color,
 
     pub ssh_text: Color,
     pub rover_text: Color,
-
-    pub activity_pane: Color,
 }
 
 pub enum Theme {
@@ -36,13 +31,9 @@ impl Theme {
 
                 text: Color::White,
                 active: Color::LightBlue,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::White,
                 rover_text: Color::LightBlue,
-                activity_pane: Color::White,
             },
             Theme::Red => ThemeColors {
                 accent: Color::LightRed,
@@ -51,13 +42,9 @@ impl Theme {
 
                 text: Color::Red,
                 active: Color::LightRed,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::LightRed,
                 rover_text: Color::LightRed,
-                activity_pane: Color::LightRed,
             },
             Theme::Blue => ThemeColors {
                 accent: Color::LightBlue,
@@ -66,13 +53,9 @@ impl Theme {
 
                 text: Color::Blue,
                 active: Color::LightBlue,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::LightBlue,
                 rover_text: Color::LightBlue,
-                activity_pane: Color::LightBlue,
             },
 
             Theme::Green => ThemeColors {
@@ -82,13 +65,9 @@ impl Theme {
 
                 text: Color::Green,
                 active: Color::LightGreen,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::LightGreen,
                 rover_text: Color::LightGreen,
-                activity_pane: Color::LightGreen,
             },
             Theme::Yellow => ThemeColors {
                 accent: Color::LightYellow,
@@ -97,13 +76,9 @@ impl Theme {
 
                 text: Color::Yellow,
                 active: Color::LightYellow,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::LightYellow,
                 rover_text: Color::LightYellow,
-                activity_pane: Color::LightYellow,
             },
             Theme::Magenta => ThemeColors {
                 accent: Color::LightMagenta,
@@ -112,13 +87,9 @@ impl Theme {
 
                 text: Color::Magenta,
                 active: Color::LightMagenta,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::LightMagenta,
                 rover_text: Color::LightMagenta,
-                activity_pane: Color::LightMagenta,
             },
             Theme::Gray => ThemeColors {
                 accent: Color::DarkGray,
@@ -127,13 +98,9 @@ impl Theme {
 
                 text: Color::DarkGray,
                 active: Color::White,
-                warning: Color::LightYellow,
-                danger: Color::LightRed,
-                success: Color::LightGreen,
 
                 ssh_text: Color::Gray,
                 rover_text: Color::Gray,
-                activity_pane: Color::Gray,
             },
         }
     }
