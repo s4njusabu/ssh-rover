@@ -1,5 +1,3 @@
-use std::sync::mpsc::Receiver;
-
 // State of the App
 use crate::{
     services,
@@ -36,8 +34,6 @@ pub struct State {
     // Dependencies
     pub nmap_installed: bool,
     pub openssh_installed: bool,
-
-    pub scanned_ips: Vec<String>,
 }
 
 impl State {
@@ -57,12 +53,10 @@ impl State {
 
             in_pane3: false,
             pane3_hovered: None,
-            pane3_selected: 0,
+            pane3_selected: usize::MAX,
 
             nmap_installed,
             openssh_installed,
-
-            scanned_ips: vec![],
         }
     }
 

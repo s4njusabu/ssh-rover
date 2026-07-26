@@ -9,7 +9,6 @@ use state::State;
 use ui::{border, home};
 
 use crate::{
-    services::discovery::scan_cidr_range,
     state::Pane1,
     ui::{panes::pane2, themes::Theme},
 };
@@ -35,6 +34,7 @@ fn main() -> std::io::Result<()> {
             }
         })?;
 
+        state.pane3_selected = usize::MAX;
         if state.in_pane1 {
             // In pane 1
             if let Event::Key(key_event) = event::read()? {
@@ -56,10 +56,7 @@ fn main() -> std::io::Result<()> {
                             state.pane1_selected = Pane1::Discovery(pane2::discovery::ITEM_COUNT);
                             state.in_pane1 = false;
                             state.in_pane2 = true;
-
                             state.pane2_hovered = Some(0);
-
-                            state.scanned_ips = scan_cidr_range::auto();
                         }
                         1 => {
                             state.pane1_selected =
@@ -158,6 +155,8 @@ fn main() -> std::io::Result<()> {
                                 state.pane2_hovered = None;
                                 state.pane2_selected = usize::MAX;
                             }
+
+                            state.pane3_selected = state.pane2_selected;
                         }
                         KeyCode::Left => {
                             state.in_pane1 = true;
