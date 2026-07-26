@@ -34,6 +34,12 @@ pub struct State {
     // Dependencies
     pub nmap_installed: bool,
     pub openssh_installed: bool,
+
+    pub scanned_ips: Vec<String>,
+    pub selected_ip: usize,
+
+    pub entering_username: bool,
+    pub username: String,
 }
 
 impl State {
@@ -57,6 +63,11 @@ impl State {
 
             nmap_installed,
             openssh_installed,
+            scanned_ips: Vec::new(),
+            selected_ip: 0,
+
+            entering_username: false,
+            username: String::new(),
         }
     }
 
