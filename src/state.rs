@@ -43,6 +43,9 @@ pub struct State {
     pub manual_ip: String,
     pub manual_username: String,
     pub entering_manual_username: bool,
+
+    pub entering_cidr: bool,
+    pub cidr_range: String,
 }
 
 impl State {
@@ -74,6 +77,9 @@ impl State {
             manual_ip: String::new(),
             manual_username: String::new(),
             entering_manual_username: false,
+
+            entering_cidr: false,
+            cidr_range: String::new(),
         }
     }
 

@@ -1,6 +1,6 @@
 use ratatui::{
     Frame,
-    layout::{Constraint, Layout, Rect},
+    layout::{Constraint, Layout, Margin, Rect},
     style::{Modifier, Style},
     text::{Line, Span},
     widgets::{Block, BorderType, Paragraph},
@@ -11,17 +11,21 @@ use crate::state::State;
 pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
     let colors = state.theme.colors();
 
+    let area = area.inner(Margin {
+        horizontal: 1,
+        vertical: 0,
+    });
+
     let hint = if state.entering_manual_username {
         "[Enter] CONNECT    [Esc] BACK"
     } else {
         "[Enter] NEXT    [Esc] BACK"
     };
 
-    let [ip_label, ip_box, _, username_label, username_box, _, footer] = Layout::vertical([
-        Constraint::Length(1),
+    let [ip_label, ip_box, username_label, username_box, _, footer] = Layout::vertical([
+        Constraint::Length(2),
         Constraint::Length(3),
-        Constraint::Length(1),
-        Constraint::Length(1),
+        Constraint::Length(2),
         Constraint::Length(3),
         Constraint::Min(0),
         Constraint::Length(1),
@@ -44,13 +48,6 @@ pub fn draw(frame: &mut Frame, area: Rect, state: &State) {
         Paragraph::new(Line::from(vec![if state.entering_manual_username {
             Span::styled(
                 format!(" {}", state.manual_ip),
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            )
-        } else if state.manual_ip.is_empty() {
-            Span::styled(
-                "",
                 Style::default()
                     .fg(colors.text)
                     .add_modifier(Modifier::BOLD),

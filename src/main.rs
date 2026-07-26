@@ -213,6 +213,101 @@ fn main() -> std::io::Result<()> {
                             _ => {}
                         }
                     }
+                } else if state.pane2_selected == 1 {
+                    if state.entering_cidr {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.cidr_range.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.cidr_range.pop();
+                            }
+                            KeyCode::Enter => {
+                                state.scanned_ips =
+                                    crate::services::discovery::scan_cidr_range::scan_cidr_range(
+                                        &state.cidr_range,
+                                    );
+                                state.entering_cidr = false;
+                                state.selected_ip = 0;
+                            }
+                            KeyCode::Esc => {
+                                state.cidr_range.clear();
+                                state.entering_cidr = false;
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    } else if state.entering_username {
+                        match key_event.code {
+                            KeyCode::Char(c) => {
+                                state.username.push(c);
+                            }
+                            KeyCode::Backspace => {
+                                state.username.pop();
+                            }
+                            KeyCode::Enter => {
+                                ratatui::restore();
+
+                                println!();
+                                println!("SSH Rover");
+                                println!(
+                                    "Connecting to {}@{}...",
+                                    state.username, state.scanned_ips[state.selected_ip]
+                                );
+                                println!("Enter the password of {}", state.username);
+                                std::process::Command::new("ssh")
+                                    .arg(format!(
+                                        "{}@{}",
+                                        state.username, state.scanned_ips[state.selected_ip]
+                                    ))
+                                    .status()
+                                    .unwrap();
+
+                                println!("Bye from SSH Rover!");
+
+                                return Ok(());
+                            }
+                            KeyCode::Esc => {
+                                state.entering_username = false;
+                                state.username.clear();
+                            }
+                            _ => {}
+                        }
+                    } else if state.scanned_ips.is_empty() {
+                        match key_event.code {
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.cidr_range.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    } else {
+                        match key_event.code {
+                            KeyCode::Up => {
+                                if state.selected_ip > 0 {
+                                    state.selected_ip -= 1;
+                                }
+                            }
+                            KeyCode::Down => {
+                                if state.selected_ip < state.scanned_ips.len() - 1 {
+                                    state.selected_ip += 1;
+                                }
+                            }
+                            KeyCode::Enter => {
+                                state.entering_username = true;
+                            }
+                            KeyCode::Esc | KeyCode::Left => {
+                                state.cidr_range.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.in_pane3 = false;
+                                state.in_pane2 = true;
+                            }
+                            _ => {}
+                        }
+                    }
                 } else if state.pane2_selected == 2 {
                     match key_event.code {
                         KeyCode::Char(c) => {
@@ -276,6 +371,17 @@ fn main() -> std::io::Result<()> {
                             let t1 = state.pane2_hovered.unwrap();
                             if t1 > 0 {
                                 state.pane2_hovered = Some(t1 - 1);
+                                state.scanned_ips.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.entering_username = false;
+
+                                state.cidr_range.clear();
+                                state.entering_cidr = true;
+
+                                state.manual_ip.clear();
+                                state.manual_username.clear();
+                                state.entering_manual_username = false;
                             }
 
                             state.pane2_selected = usize::MAX;
@@ -286,6 +392,18 @@ fn main() -> std::io::Result<()> {
                             if t1 < index - 1 {
                                 let t2 = t1 + 1;
                                 state.pane2_hovered = Some(t2);
+
+                                state.scanned_ips.clear();
+                                state.selected_ip = 0;
+                                state.username.clear();
+                                state.entering_username = false;
+
+                                state.cidr_range.clear();
+                                state.entering_cidr = true;
+
+                                state.manual_ip.clear();
+                                state.manual_username.clear();
+                                state.entering_manual_username = false;
                             }
                             state.pane2_selected = usize::MAX;
                         }
@@ -303,6 +421,15 @@ fn main() -> std::io::Result<()> {
                                         state.in_pane2 = false;
                                         state.in_pane3 = true;
                                     }
+                                }
+
+                                1 => {
+                                    state.cidr_range.clear();
+                                    state.scanned_ips.clear();
+                                    state.entering_cidr = true;
+
+                                    state.in_pane2 = false;
+                                    state.in_pane3 = true;
                                 }
 
                                 2 => {
