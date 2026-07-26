@@ -13,8 +13,8 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
 
     let [
         title,
-        accent,
         background,
+        accent,
         banner,
         text,
         active,
@@ -52,24 +52,6 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
     frame.render_widget(
         Paragraph::new(Line::from(vec![
             Span::styled(
-                format!("{:<15}", "ACCENT"),
-                Style::default()
-                    .fg(colors.text)
-                    .add_modifier(Modifier::BOLD),
-            ),
-            Span::styled(
-                "████████",
-                Style::default()
-                    .fg(Color::LightBlue)
-                    .add_modifier(Modifier::BOLD),
-            ),
-        ])),
-        accent,
-    );
-
-    frame.render_widget(
-        Paragraph::new(Line::from(vec![
-            Span::styled(
                 format!("{:<15}", "BACKGROUND"),
                 Style::default()
                     .fg(colors.text)
@@ -87,6 +69,24 @@ pub fn draw(frame: &mut Frame, inner: Rect, state: &State) {
             ),
         ])),
         background,
+    );
+
+    frame.render_widget(
+        Paragraph::new(Line::from(vec![
+            Span::styled(
+                format!("{:<15}", "ACCENT"),
+                Style::default()
+                    .fg(colors.text)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(
+                "████████",
+                Style::default()
+                    .fg(Color::LightBlue)
+                    .add_modifier(Modifier::BOLD),
+            ),
+        ])),
+        accent,
     );
 
     frame.render_widget(
