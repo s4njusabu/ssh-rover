@@ -29,5 +29,3 @@ pub fn openssh_installed() -> bool {
         .output()
         .is_ok_and(|output| output.status.success())
 }
-
-// setup the systemd if not setup
