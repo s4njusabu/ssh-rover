@@ -27,13 +27,13 @@ A terminal user interface (TUI) for discovering hosts on a local network and con
 ## Installation
 
 ```bash
-cargo install sshrover
+cargo install ssh-rover
 ```
 
 ## Usage
 
 ```bash
-sshrover
+ssh-rover
 ```
 
 ## License
