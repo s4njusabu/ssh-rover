@@ -1,5 +1,5 @@
 [package]
-name = "sshrover"
+name = "ssh-rover"
 version = "0.1.3"
 edition = "2024"
 description = "A terminal user interface (TUI) for discovering hosts on a local network and connecting to them over SSH."
