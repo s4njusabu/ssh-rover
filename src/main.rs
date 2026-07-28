@@ -164,18 +164,18 @@ fn main() -> std::io::Result<()> {
                             KeyCode::Enter => {
                                 ratatui::restore();
 
+                                let raw = &state.scanned_ips[state.selected_ip];
+                                let ip = raw
+                                    .rsplit_once('(')
+                                    .map(|(_, rest)| rest.trim_end_matches(')'))
+                                    .unwrap_or(raw.as_str());
+
                                 println!();
                                 println!("SSH Rover");
-                                println!(
-                                    "Connecting to {}@{}...",
-                                    state.username, state.scanned_ips[state.selected_ip]
-                                );
+                                println!("Connecting to {}@{}...", state.username, ip);
                                 println!("Enter the password of {}", state.username);
                                 std::process::Command::new("ssh")
-                                    .arg(format!(
-                                        "{}@{}",
-                                        state.username, state.scanned_ips[state.selected_ip]
-                                    ))
+                                    .arg(format!("{}@{}", state.username, ip))
                                     .status()
                                     .unwrap();
 
@@ -248,19 +248,17 @@ fn main() -> std::io::Result<()> {
                             }
                             KeyCode::Enter => {
                                 ratatui::restore();
-
+                                let raw = &state.scanned_ips[state.selected_ip];
+                                let ip = raw
+                                    .rsplit_once('(')
+                                    .map(|(_, rest)| rest.trim_end_matches(')'))
+                                    .unwrap_or(raw.as_str());
                                 println!();
                                 println!("SSH Rover");
-                                println!(
-                                    "Connecting to {}@{}...",
-                                    state.username, state.scanned_ips[state.selected_ip]
-                                );
+                                println!("Connecting to {}@{}...", state.username, ip);
                                 println!("Enter the password of {}", state.username);
                                 std::process::Command::new("ssh")
-                                    .arg(format!(
-                                        "{}@{}",
-                                        state.username, state.scanned_ips[state.selected_ip]
-                                    ))
+                                    .arg(format!("{}@{}", state.username, ip))
                                     .status()
                                     .unwrap();
 
