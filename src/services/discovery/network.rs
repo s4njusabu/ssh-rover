@@ -51,7 +51,10 @@ pub fn get_interface_cidr(interface: &str) -> Option<String> {
 }
 
 pub fn scan_cidr_range(cidr: &str) -> Vec<String> {
-    let net: Ipv4Net = cidr.parse().unwrap();
+    let net: Ipv4Net = match cidr.trim().parse() {
+        Ok(net) => net,
+        Err(_) => return Vec::new(),
+    };
 
     let network = net.network().to_string();
     let prefix_len = net.prefix_len().to_string();
