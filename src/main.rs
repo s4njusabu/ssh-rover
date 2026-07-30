@@ -1,10 +1,12 @@
-use crossterm::event::{self, Event, KeyCode};
-
 mod services;
 mod state;
 mod ui;
 
-use ratatui::{style::Style, widgets::Block};
+use ratatui::{
+    crossterm::event::{self, Event, KeyCode},
+    style::Style,
+    widgets::Block,
+};
 use state::State;
 use ui::{border, home};
 

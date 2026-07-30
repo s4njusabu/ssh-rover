@@ -1,6 +1,6 @@
 [package]
 name = "ssh-rover"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "A terminal user interface (TUI) for discovering hosts on a local network and connecting to them over SSH."
 license = "MIT"
@@ -8,6 +8,5 @@ repository = "https://github.com/s4njusabu/ssh-rover"
 readme = "README.md"
 
 [dependencies]
-crossterm = "0.29.0"
 ipnet = "2.12.0"
 ratatui = "0.30.2"
